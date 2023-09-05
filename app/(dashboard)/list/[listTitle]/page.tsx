@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft, FiEdit, FiTrash } from "react-icons/fi";
 
 export default function ListInDetail({ params }: {params: {listTitle: string}}) {
   return (
@@ -15,6 +15,54 @@ export default function ListInDetail({ params }: {params: {listTitle: string}}) 
               { params.listTitle } 
           </span>  
         </div>
+
+        <section className="p-5">
+          <table className="w-full">
+            <thead className=" bg-orange-100 text-secondary-default h-10">
+              <tr>
+                <th>
+                  Item
+                </th>
+                <th>
+                  Quantity with Unit
+                </th>
+                <th>
+                  Expiry
+                </th>
+                <th aria-colspan={2}>
+                  Purchased
+                </th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+              <tr className="text-center h-14">
+                <td>
+                  Rice
+                </td>
+                <td>
+                  1 kg
+                </td>
+                <td>
+                  May 2024
+                </td>
+                <td>
+                  <input type="checkbox" />
+                </td>
+                <td className="flex flex-row gap-2 items-center justify-center h-14">
+                  <span>
+                    <FiEdit />
+                  </span>
+                  <span>
+                    <FiTrash />
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
 
       </section>
 
