@@ -64,8 +64,7 @@ export default function Home() {
       <div className="create-list-button-container flex flex-row justify-center">
         <Link
           href={"/create-new-list"}
-          className="px-10 py-3 bg-primary-default text-white">
-          
+          className="primary-button">
           Create New List
         </Link>
       </div>

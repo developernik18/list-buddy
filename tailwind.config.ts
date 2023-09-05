@@ -14,6 +14,9 @@ const config: Config = {
         current: 'currentColor',
         primary: {
           default: '#5b21b6' //indigo-800
+        },
+        secondary: {
+          default: '#9a3412' //orange-800
         }
       },
       backgroundImage: {

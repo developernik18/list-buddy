@@ -17,7 +17,7 @@ export default function CreateNewList() {
   const handleSubmit = async (ev: FormEvent) => {
     ev.preventDefault();
     console.log(listTitle);
-    router.push("/list" + "/"+ listTitle);
+    router.push("/list/add-items/" + listTitle);
   }
 
   return (
