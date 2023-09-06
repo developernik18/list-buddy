@@ -10,13 +10,13 @@ export default function ListInDetail({ params }: {params: {listTitle: string}}) 
       </Link>
 
       <section className="w-full lg:w-4/5 xl:w-3/5 mx-auto">
-        <div className="top bg-orange-100 p-3 px-10 text-left font-medium text-xl">
+        <div className="top bg-white border-b-2 p-3 px-10 text-left font-medium text-xl">
           <span className="text-secondary-default">
               { params.listTitle } 
           </span>  
         </div>
 
-        <section className="p-5">
+        <section className="p-10 bg-white shadow-md">
           <table className="w-full">
             <thead className=" bg-orange-100 text-secondary-default h-10">
               <tr>
@@ -29,15 +29,18 @@ export default function ListInDetail({ params }: {params: {listTitle: string}}) 
                 <th>
                   Expiry
                 </th>
-                <th aria-colspan={2}>
+                <th>
                   Purchased
                 </th>
+                <td>
+
+                </td>
               </tr>
 
             </thead>
 
-            <tbody>
-              <tr className="text-center h-14">
+            <tbody className=" accent-orange-600">
+              <tr className="text-center h-14 even:bg-gray-100 odd:bg-white">
                 <td>
                   Rice
                 </td>
@@ -48,7 +51,30 @@ export default function ListInDetail({ params }: {params: {listTitle: string}}) 
                   May 2024
                 </td>
                 <td>
-                  <input type="checkbox" />
+                  <input type="checkbox" className=" w-4 h-4"/>
+                </td>
+                <td className="flex flex-row gap-2 items-center justify-center h-14">
+                  <Link href={"/list/" + params.listTitle + "/rice/edit"}>
+                    <FiEdit />
+                  </Link>
+                  <span>
+                    <FiTrash />
+                  </span>
+                </td>
+              </tr>
+
+              <tr className="text-center h-14 even:bg-gray-100 odd:bg-white">
+                <td>
+                  Wheat
+                </td>
+                <td>
+                  1 kg
+                </td>
+                <td>
+                  May 2024
+                </td>
+                <td>
+                  <input type="checkbox"  className=" w-4 h-4" />
                 </td>
                 <td className="flex flex-row gap-2 items-center justify-center h-14">
                   <span>
