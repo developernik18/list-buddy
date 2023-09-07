@@ -1,0 +1,16 @@
+.form {
+  @apply bg-white p-10 shadow-md flex flex-col 
+  items-center justify-center gap-4
+}
+
+.label {
+  @apply flex flex-col gap-1
+}
+
+.label > span {
+  @apply text-lg
+}
+
+.label > input {
+  @apply w-72 bg-gray-100 px-5 py-2
+}
