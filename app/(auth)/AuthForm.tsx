@@ -1,13 +1,14 @@
 "use client"
 
 import { FormEvent, useState } from "react"
+
+// css styles
 import styles from './AuthForm.module.css'
 
 
 export default function AuthForm({ handleSubmit} : {handleSubmit(ev: FormEvent, email: string, password: string): void}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
 
   return (
     <form 

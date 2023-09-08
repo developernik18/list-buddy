@@ -17,3 +17,7 @@
 .primary-button {
   @apply px-10 py-3 bg-primary-default text-white
 }
+
+.error {
+  @apply text-red-500 text-base;
+}
