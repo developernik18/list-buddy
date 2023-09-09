@@ -12,6 +12,7 @@ export default function SignUp() {
 
   const handleSubmit = async (ev: FormEvent, email: string, password: string) => {
     ev.preventDefault();
+    setError('');
 
     const {error} = await supabase.auth.signInWithPassword({
       email,

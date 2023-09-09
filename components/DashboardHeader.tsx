@@ -1,7 +1,12 @@
 import Link from "next/link"
 import LogoutButton from "./LogoutButton"
+import { User } from "@supabase/supabase-js"
 
-export default function DashboardHeader({user}: {user: {email: string}}) {
+type userType = {
+  user: User | undefined
+}
+
+export default function DashboardHeader({user}: userType) {
   return (
     <header className=" shadow-sm px-10 py-4">
       <div className="container mx-auto flex flex-row justify-between items-center">
@@ -11,7 +16,7 @@ export default function DashboardHeader({user}: {user: {email: string}}) {
         <nav className="nav">
           {user && (
             <div className="flex flex-row items-center gap-10">
-              <Link href={"/profile"}>
+              <Link href={"/profile"} className="hidden sm:block">
                 {user.email}
               </Link>
               <LogoutButton />
