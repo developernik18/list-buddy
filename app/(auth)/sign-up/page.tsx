@@ -28,7 +28,6 @@ export default function SignUp() {
     if(!error) {
       router.push('/verify');
     }
-    console.log('Sign Up', email, password);
   }
 
   return (
