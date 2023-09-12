@@ -1,9 +1,22 @@
 "use client"
+// Form Event is used to accept event generated on submit of the form
+// usestate is used to display errors
+import { FormEvent, useState } from "react"; 
 
-import { FormEvent, useState } from "react";
+// AuthForm is a component that contains the form.
 import AuthForm from "../AuthForm";
+
+// createClientComponentClient is used to create supabase client
+// and this supabase client sends the form fields to supabase server
+// to sign up the user.
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+
+
+// useRouter is used to create router which is used to redirect the 
+// user to the verify page.
 import { useRouter } from "next/navigation"
+
+
 
 export default function SignUp() {
   const [error, setError] = useState('');

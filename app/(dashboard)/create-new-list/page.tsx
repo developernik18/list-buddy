@@ -16,8 +16,14 @@ export default function CreateNewList() {
 
   const handleSubmit = async (ev: FormEvent) => {
     ev.preventDefault();
-    console.log(listTitle);
-    router.push("/list/" + listTitle + '/add-items');
+    const response = await fetch('http://localhost:3000/api/create-new-list', {
+      method: "POST",
+      body: JSON.stringify({"title": listTitle}),
+      headers: {"Content-Type": "application/json"}
+    })
+
+    console.log(await response.json());
+    // router.push("/list/" + listTitle + '/add-items');
   }
 
   return (
