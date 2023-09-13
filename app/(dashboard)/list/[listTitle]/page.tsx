@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { FiArrowLeft, FiEdit, FiTrash } from "react-icons/fi";
 
-export default function ListInDetail({ params }: {params: {listTitle: string}}) {
+export default async function ListInDetail({ params }: {params: {listTitle: string}}) {
+
+
+  // const lists = await fetch('http://localhost:3000/api/get-lists', {
+  //   method: 'GET',
+  //   headers: {'Content-Type': "application/json"}
+  // });
+  // console.log(lists); 
+
   return (
     <main className="bg-gray-50 h-[90vh]">
     <section className="container px-10 py-10 mx-auto flex flex-col gap-2">
