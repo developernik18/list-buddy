@@ -22,8 +22,15 @@ export default function CreateNewList() {
       headers: {"Content-Type": "application/json"}
     })
 
-    console.log(await response.json());
-    // router.push("/list/" + listTitle + '/add-items');
+    const {data, error} = await response.json();
+
+    if(error) {
+      console.log(error);
+    }
+
+    if(!error) {
+      router.push("/list/" + data.id + '/add-items');
+    }
   }
 
   return (
