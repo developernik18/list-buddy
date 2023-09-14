@@ -26,7 +26,7 @@ export default async function Home() {
           return (
             <div className="flex basis-1/3 flex-col p-5" key={list.id}>
               <div className="shadow" >
-                <h2 className=" bg-indigo-500 p-5 text-white text-lg font-medium py-3
+                <h2 className=" bg-indigo-800 p-5 text-white text-lg font-medium py-3
                   flex flex-row justify-between items-center">
                   {list.title}
                   <Link href={"/list/" + list.id}>

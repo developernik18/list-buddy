@@ -1,14 +1,9 @@
 import Link from "next/link";
 import { FiArrowLeft, FiEdit, FiTrash } from "react-icons/fi";
+import { getListInfo } from "@/util/server-functions/getListInfo";
 
-export default async function ListInDetail({ params }: {params: {listTitle: string}}) {
-
-
-  // const lists = await fetch('http://localhost:3000/api/get-lists', {
-  //   method: 'GET',
-  //   headers: {'Content-Type': "application/json"}
-  // });
-  // console.log(lists); 
+export default async function ListInDetail({ params }: {params: {listId: number}}) {
+  let listInfo = await getListInfo(params.listId)
 
   return (
     <main className="bg-gray-50 h-[90vh]">
@@ -20,7 +15,7 @@ export default async function ListInDetail({ params }: {params: {listTitle: stri
       <section className="w-full lg:w-4/5 xl:w-3/5 mx-auto">
         <div className="top bg-white border-b-2 p-3 px-10 text-left font-medium text-xl">
           <span className="text-secondary-default">
-              { params.listTitle } 
+              { listInfo.title } 
           </span>  
         </div>
 
@@ -97,6 +92,13 @@ export default async function ListInDetail({ params }: {params: {listTitle: stri
           </table>
         </section>
 
+        <div className="create-list-button-container flex flex-row justify-center mt-10">
+          <Link
+            href={"/list/"+ listInfo.id + "/add-items"}
+            className="primary-button">
+            Add more items
+          </Link>
+        </div>
 
       </section>
 

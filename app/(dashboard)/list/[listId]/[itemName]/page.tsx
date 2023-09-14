@@ -5,12 +5,12 @@ import { FiArrowLeft } from "react-icons/fi"
 import { useRouter } from "next/navigation"
 import { FormEvent } from "react";
 
-export default function EditItem({ params }: {params: {listTitle: string, itemName: string}}) {
+export default function EditItem({ params }: {params: {listId: number, itemName: string}}) {
   let router = useRouter();
 
   const handleFormSubmission = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    router.push("/list/" + params.listTitle);
+    router.push("/list/" + params.listId);
   }
 
 
@@ -23,13 +23,9 @@ export default function EditItem({ params }: {params: {listTitle: string, itemNa
 
         <section className="w-full lg:w-4/5 xl:w-3/5 mx-auto">
           <div className="top bg-orange-100 p-3 text-center font-medium text-xl">
-            Edit 
+            Add to 
             <span className="text-secondary-default">
-                {' "' +params.itemName + '" '} 
-            </span>  
-            from
-            <span className="text-secondary-default">
-                {' "' +params.listTitle + '" '} 
+                {' "' +params.listId + '" '} 
             </span>  
             List
           </div>
@@ -102,7 +98,7 @@ export default function EditItem({ params }: {params: {listTitle: string, itemNa
                 />
               </label>
               <button className="primary-button">
-                Save Changes
+                Add to List
               </button>
             </div>
 
