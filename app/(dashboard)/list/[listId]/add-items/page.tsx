@@ -25,7 +25,7 @@ export default async function AddToList({ params }: {params: {listId: number}}) 
             List
           </div>
 
-          <ItemAdditionForm />
+          <ItemAdditionForm listId={params.listId}/>
         </section>
 
       </section>

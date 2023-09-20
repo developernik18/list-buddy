@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import { selectUnitOptions } from "@/util/selection-list/for-unit";
 import { selectCurrencyOptions } from "@/util/selection-list/for-currency";
 
-export default function ItemAdditionForm() {
+export default function ItemAdditionForm({listId} : {listId: number}) {
   const [itemName, setItemName] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [unit, setUnit] = useState(selectUnitOptions[0].value);
@@ -14,9 +14,23 @@ export default function ItemAdditionForm() {
   const [notes, setNotes] = useState('');
 
 
-  const handleFormSubmission = (ev: FormEvent) => {
+  const handleFormSubmission = async (ev: FormEvent) => {
     ev.preventDefault();
-    console.log(itemName, quantity, unit, currency, price, expiryDate, notes)
+    const res = await fetch('http://localhost:3000/api/add-item', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        itemName,
+        quantity,
+        unit,
+        currency,
+        price,
+        expiryDate,
+        notes,
+        listId
+      })
+    })
+    // console.log(itemName, quantity, unit, currency, price, expiryDate, notes)
     // router.push("/list/" + params.listTitle);
   }
 
@@ -72,8 +86,12 @@ export default function ItemAdditionForm() {
             type="number" 
             id="item-price" 
             min={0}
+            step={"any"}
             value={price}
-            onChange={(e) => setPrice(Number(e.target.value))}
+            onChange={(e) => {
+              let price = Number(e.target.value).toFixed(2);
+              setPrice(Number(price))
+            }}
             className="bg-gray-100 px-4 pl-20 py-2 w-full outline-offset-2" 
           />
           <select 
