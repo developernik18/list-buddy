@@ -33,6 +33,7 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
     setLoading(true);
     setErrorMessage('');
     setSuccessMessage('');
+    
 
     const res = await fetch('http://localhost:3000/api/add-item', {
       method: 'POST',
@@ -43,7 +44,7 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
         unit,
         currency,
         price,
-        expiry_date: expiryDate,
+        expiry_date: expiryDate ? expiryDate : null,
         notes,
         listId,
         list_key: listKey
