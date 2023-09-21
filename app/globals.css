@@ -18,6 +18,18 @@
   @apply px-10 py-3 bg-primary-default text-white
 }
 
+.disabled-button {
+  @apply px-10 py-3 bg-gray-400 text-white
+}
+
 .error {
   @apply text-red-500 text-base;
+}
+
+.error-xl {
+  @apply text-red-500 text-xl;
+}
+
+.success-xl {
+  @apply text-green-500 text-xl;
 }

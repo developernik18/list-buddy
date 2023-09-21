@@ -3,8 +3,13 @@
 import { FormEvent, useState } from "react";
 import { selectUnitOptions } from "@/util/selection-list/for-unit";
 import { selectCurrencyOptions } from "@/util/selection-list/for-currency";
+import Link from "next/link";
 
-export default function ItemAdditionForm({listId} : {listId: number}) {
+export default function ItemAdditionForm({listId, listKey} : {listId: number, listKey: string}) {
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const [itemName, setItemName] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [unit, setUnit] = useState(selectUnitOptions[0].value);
@@ -13,25 +18,36 @@ export default function ItemAdditionForm({listId} : {listId: number}) {
   const [expiryDate, setExpiryDate] = useState('');
   const [notes, setNotes] = useState('');
 
-
   const handleFormSubmission = async (ev: FormEvent) => {
     ev.preventDefault();
+    setLoading(true);
+    setErrorMessage('');
+    setSuccessMessage('');
+
     const res = await fetch('http://localhost:3000/api/add-item', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        itemName,
+        name: itemName,
         quantity,
         unit,
         currency,
         price,
-        expiryDate,
+        expiry_date: expiryDate,
         notes,
-        listId
+        listId,
+        list_key: listKey
       })
     })
-    // console.log(itemName, quantity, unit, currency, price, expiryDate, notes)
-    // router.push("/list/" + params.listTitle);
+
+    setLoading(false);
+    if(res.status === 500) {
+      setErrorMessage('Error while adding items');
+    } else {
+      let data = await res.json();
+      console.log(data);
+      setSuccessMessage('Item successfully added.');  
+    }
   }
 
 
@@ -135,10 +151,29 @@ export default function ItemAdditionForm({listId} : {listId: number}) {
               
           />
         </label>
-        <button className="primary-button">
-          Add to List
+        <button 
+          className={loading? "disabled-button" : "primary-button"} 
+          disabled={loading}
+        >
+          {loading && <span>Loading...</span> } 
+          {!loading && <span>Add to List</span> } 
         </button>
       </div>
+
+      {errorMessage && (
+        <div className="error-xl text-right">
+          {errorMessage}
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="success-xl text-right">
+          {successMessage + " "}
+          <Link href={"/list/" + listId} className=" text-primary-default">
+            Open List
+          </Link>
+        </div>
+      )}
     </form>
   )
 }

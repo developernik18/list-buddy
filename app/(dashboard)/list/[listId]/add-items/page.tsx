@@ -7,7 +7,6 @@ import { getListInfo } from "@/util/server-functions/getListInfo";
 export default async function AddToList({ params }: {params: {listId: number}}) {
   let listInfo = await getListInfo(params.listId);
 
-  
 
   return (
     <main className="bg-gray-50 h-[90vh]">
@@ -25,7 +24,7 @@ export default async function AddToList({ params }: {params: {listId: number}}) 
             List
           </div>
 
-          <ItemAdditionForm listId={params.listId}/>
+          <ItemAdditionForm listId={params.listId} listKey={listInfo.list_key}/>
         </section>
 
       </section>
