@@ -18,6 +18,16 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
   const [expiryDate, setExpiryDate] = useState('');
   const [notes, setNotes] = useState('');
 
+  const resetAllInputField = () => {
+    setItemName('');
+    setQuantity(0);
+    setUnit(selectUnitOptions[0].value);
+    setCurrency(selectCurrencyOptions[0].value);
+    setPrice(0);
+    setExpiryDate('');
+    setNotes('');
+  }
+
   const handleFormSubmission = async (ev: FormEvent) => {
     ev.preventDefault();
     setLoading(true);
@@ -45,6 +55,7 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
       setErrorMessage('Error while adding items');
     } else {
       let data = await res.json();
+      resetAllInputField();
       console.log(data);
       setSuccessMessage('Item successfully added.');  
     }

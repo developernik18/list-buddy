@@ -13,4 +13,7 @@ export const selectUnitOptions = [{
 },{
   value: 'piece',
   label: 'piece'
+},{
+  value: 'packet',
+  label: 'packet'
 }]

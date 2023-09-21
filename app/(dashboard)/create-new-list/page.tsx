@@ -7,6 +7,7 @@ import { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 
 export default function CreateNewList() {
+  const [loading, setLoading] = useState(false);
   const [listTitle, setListTitle] = useState('');
   let router = useRouter();
 
@@ -16,6 +17,7 @@ export default function CreateNewList() {
 
   const handleSubmit = async (ev: FormEvent) => {
     ev.preventDefault();
+    setLoading(true);
     const response = await fetch('http://localhost:3000/api/create-new-list', {
       method: "POST",
       body: JSON.stringify({"title": listTitle}),
@@ -23,6 +25,7 @@ export default function CreateNewList() {
     })
 
     const {data, error} = await response.json();
+    setLoading(false);
 
     if(error) {
       console.log(error);
@@ -58,10 +61,11 @@ export default function CreateNewList() {
                 />
               </label>
               <button 
-                className="px-10 py-2 bg-primary-default 
-                text-white text-base m-3 w-3/5 sm:w-2/5 self-end"
+                className= {loading ? "disabled-button-responsive" : "primary-button-responsive "}
+                disabled={loading}
               > 
-                Submit 
+                {loading && <span>Loading...</span>}
+                {!loading && <span>Submit</span>}
               </button>
             </form>
 

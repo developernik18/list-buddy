@@ -1,5 +1,5 @@
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export const getListInfo = async (id: number) => {
@@ -22,6 +22,6 @@ export const getListInfo = async (id: number) => {
       
     }
   } catch {
-    redirect("/login");
+    // redirect("/login");
   }
 }

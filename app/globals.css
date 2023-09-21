@@ -18,8 +18,18 @@
   @apply px-10 py-3 bg-primary-default text-white
 }
 
+.primary-button-responsive {
+  @apply px-10 py-2 bg-primary-default 
+  text-white text-base m-3 w-3/5 sm:w-2/5 self-end
+}
+
 .disabled-button {
   @apply px-10 py-3 bg-gray-400 text-white
+}
+
+.disabled-button-responsive {
+  @apply px-10 py-2 bg-gray-400 
+  text-white text-base m-3 w-3/5 sm:w-2/5 self-end
 }
 
 .error {

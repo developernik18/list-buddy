@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 export async function getListItems(listId: number) {
   console.log(listId);
@@ -16,7 +16,7 @@ export async function getListItems(listId: number) {
 
     return data;
   } catch {
-    redirect('/login');
+    // redirect('/login');
   }
 
 }
