@@ -42,7 +42,7 @@ export default async function ListInDetail({ params }: {params: {listId: number}
         <section className="w-full lg:w-4/5 xl:w-3/5 mx-auto">
           <div className="top bg-white border-b-2 p-3 px-10 text-left font-medium text-xl">
             <span className="text-secondary-default">
-                { listInfo.title } 
+                { listInfo?.title } 
             </span>  
           </div>
 
@@ -84,7 +84,7 @@ export default async function ListInDetail({ params }: {params: {listId: number}
                         {item.expiry_date}
                       </td>
                       <td>
-                        <Checkbox isChecked={item.purchased}/>
+                        <Checkbox isChecked={item.purchased} item={item}/>
                       </td>
                       <td className="flex flex-row gap-2 items-center justify-center h-14">
                         <Link href={"/list/" + params.listId + "/rice/edit"}>
