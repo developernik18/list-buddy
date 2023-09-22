@@ -46,7 +46,7 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
         price,
         expiry_date: expiryDate ? expiryDate : null,
         notes,
-        listId,
+        list_id: listId,
         list_key: listKey
       })
     })
@@ -57,7 +57,6 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
     } else {
       let data = await res.json();
       resetAllInputField();
-      console.log(data);
       setSuccessMessage('Item successfully added.');  
     }
   }

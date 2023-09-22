@@ -6,7 +6,7 @@ import Checkbox from "./Checkbox";
 
 export default async function ListInDetail({ params }: {params: {listId: number}}) {
   const listInfo = await getListInfo(params.listId);
-  const listItems = await getListItems(params.listId);
+  const listItems = await getListItems(params.listId, listInfo?.list_key);
   let showTable = false;
 
   if(listItems?.length) {

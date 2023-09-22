@@ -2,8 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 // import { redirect } from "next/navigation";
 
-export async function getListItems(listId: number) {
-  console.log(listId);
+export async function getListItems(listId: number, listKey: string) {
 
   try {
     const supabase = createServerComponentClient({cookies});
@@ -12,7 +11,9 @@ export async function getListItems(listId: number) {
 
     const {data, error} = await supabase
                                   .from ('Items')
-                                  .select();
+                                  .select()
+                                  .eq('list_id', listId)
+                                  .eq('list_key', listKey)
 
     return data;
   } catch {
