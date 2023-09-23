@@ -2,6 +2,7 @@ export type Item = {
   id: number,
   name: string,
   created_at: Date,
+  expiry_date: Date,
   quantity: number,
   unit: string,
   currency: string,

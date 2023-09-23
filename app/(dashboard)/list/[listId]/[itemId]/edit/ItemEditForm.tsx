@@ -5,36 +5,28 @@ import { selectUnitOptions } from "@/util/selection-list/for-unit";
 import { selectCurrencyOptions } from "@/util/selection-list/for-currency";
 import Link from "next/link";
 import { List } from "@/types/list";
+import { Item } from "@/types/item";
 
 export default function ItemEditForm(
   {
     listDetails,
-    itemId
+    itemDetails
   }: {
     listDetails: List,
-    itemId: number
+    itemDetails: Item
   }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const [itemName, setItemName] = useState('');
-  const [quantity, setQuantity] = useState(0);
-  const [unit, setUnit] = useState(selectUnitOptions[0].value);
-  const [currency, setCurrency] = useState(selectCurrencyOptions[0].value);
-  const [price, setPrice] = useState(0);
-  const [expiryDate, setExpiryDate] = useState('');
-  const [notes, setNotes] = useState('');
+  const [itemName, setItemName] = useState(itemDetails.name);
+  const [quantity, setQuantity] = useState(itemDetails.quantity);
+  const [unit, setUnit] = useState(itemDetails.unit);
+  const [currency, setCurrency] = useState(itemDetails.currency);
+  const [price, setPrice] = useState(itemDetails.price);
+  const [expiryDate, setExpiryDate] = useState(itemDetails.expiry_date);
+  const [notes, setNotes] = useState(itemDetails.notes);
 
-  const resetAllInputField = () => {
-    setItemName('');
-    setQuantity(0);
-    setUnit(selectUnitOptions[0].value);
-    setCurrency(selectCurrencyOptions[0].value);
-    setPrice(0);
-    setExpiryDate('');
-    setNotes('');
-  }
 
   const handleFormSubmission = async (ev: FormEvent) => {
     ev.preventDefault();
@@ -54,8 +46,8 @@ export default function ItemEditForm(
         price,
         expiry_date: expiryDate ? expiryDate : null,
         notes,
-        list_id: listId,
-        list_key: listKey
+        // list_id: listId,
+        // list_key: listKey
       })
     })
 
@@ -64,7 +56,6 @@ export default function ItemEditForm(
       setErrorMessage('Error while adding items');
     } else {
       let data = await res.json();
-      resetAllInputField();
       setSuccessMessage('Item successfully added.');
     }
   }
@@ -100,6 +91,7 @@ export default function ItemEditForm(
             id="quantity-unit"
             onChange={(e) => setUnit(e.target.value)}
             className="absolute right-0 bottom-0 px-4 py-2 bg-gray-200"
+            value={unit}
           >
             {selectUnitOptions.map(option => {
               return (
@@ -134,6 +126,7 @@ export default function ItemEditForm(
             id="currency"
             className="absolute left-0 bottom-1 px-4 py-2 bg-gray-200"
             onChange={(e) => setCurrency(e.target.value)}
+            value={currency}
           >
             {selectCurrencyOptions.map(option => {
               return (

@@ -9,7 +9,7 @@ import { Item } from "@/types/item";
 export default async function EditItem({ params }: {params: {listId: number, itemId: number}}) {
   const listDetails:List = await getListInfo(params.listId);
   const itemDetails:Item = await getItemDetails(listDetails.list_key, params.listId, params.itemId)
-  console.log(itemDetails)
+
   return (
     <main className="bg-gray-50 h-[90vh]">
       <section className="container px-10 py-10 mx-auto flex flex-col gap-2">
@@ -30,7 +30,9 @@ export default async function EditItem({ params }: {params: {listId: number, ite
             List
           </div>
 
-          <ItemEditForm listDetails={listDetails} itemId={params.itemId}/>
+          {itemDetails && (
+            <ItemEditForm listDetails={listDetails} itemDetails={itemDetails}/>
+          )}
 
         </section>
         
