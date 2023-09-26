@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 export const getItemDetails = async (list_key: string, list_id: number, itemId: number, ) => {
   try{
     const supabase = createServerActionClient({cookies});
-    console.log(list_key, list_id, itemId)
     const {data, error} = await supabase
       .from('Items')
       .select()
@@ -15,7 +14,6 @@ export const getItemDetails = async (list_key: string, list_id: number, itemId: 
       .single()
   
     if(data) {
-      console.log(data);
       return data;
     } else if(error) {
       console.log(error);

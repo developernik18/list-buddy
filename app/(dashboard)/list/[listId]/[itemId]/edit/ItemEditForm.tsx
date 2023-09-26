@@ -24,7 +24,7 @@ export default function ItemEditForm(
   const [unit, setUnit] = useState(itemDetails.unit);
   const [currency, setCurrency] = useState(itemDetails.currency);
   const [price, setPrice] = useState(itemDetails.price);
-  const [expiryDate, setExpiryDate] = useState(itemDetails.expiry_date);
+  const [expiryDate, setExpiryDate] = useState(String(itemDetails.expiry_date));
   const [notes, setNotes] = useState(itemDetails.notes);
 
 
@@ -35,7 +35,7 @@ export default function ItemEditForm(
     setSuccessMessage('');
 
 
-    const res = await fetch('http://localhost:3000/api/add-item', {
+    const res = await fetch('http://localhost:3000/api/update-item', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -46,17 +46,18 @@ export default function ItemEditForm(
         price,
         expiry_date: expiryDate ? expiryDate : null,
         notes,
-        // list_id: listId,
-        // list_key: listKey
+        list_id: listDetails.id,
+        list_key: listDetails.list_key,
+        id: itemDetails.id
       })
     })
 
     setLoading(false);
     if (res.status === 500) {
-      setErrorMessage('Error while adding items');
+      setErrorMessage('Error while updating item');
     } else {
       let data = await res.json();
-      setSuccessMessage('Item successfully added.');
+      setSuccessMessage('Item successfully updated.');
     }
   }
 
@@ -168,7 +169,7 @@ export default function ItemEditForm(
           disabled={loading}
         >
           {loading && <span>Loading...</span>}
-          {!loading && <span>Add to List</span>}
+          {!loading && <span>Update Item</span>}
         </button>
       </div>
 
@@ -181,7 +182,7 @@ export default function ItemEditForm(
       {successMessage && (
         <div className="success-xl text-right">
           {successMessage + " "}
-          <Link href={"/list/" + listId} className=" text-primary-default">
+          <Link href={"/list/" + itemDetails.list_id} className=" text-primary-default">
             Open List
           </Link>
         </div>

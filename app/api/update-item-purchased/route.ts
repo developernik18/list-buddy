@@ -5,20 +5,10 @@ import { cookies } from "next/headers";
 export async function POST(req: NextRequest) {
   const request = await req.json();
   const supabase = createRouteHandlerClient({cookies});
-
   
   const {data, error} = await supabase
                           .from('Items')
-                          .update({
-                            name: request.name,
-                            quantity: request.quantity,
-                            unit: request.unit,
-                            currency:  request.currency,
-                            price: request.price,
-                            expiry_date: request.expiry_date,
-                            notes: request.notes,
-                            purchased: request.purchased
-                          })
+                          .update({purchased: request.purchased})
                           .eq("list_id", Number(request.list_id))
                           .eq("list_key", request.list_key)
                           .eq("id", request.id)

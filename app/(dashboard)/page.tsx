@@ -2,6 +2,8 @@ import Link from "next/link"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { FiArrowRight } from "react-icons/fi";
+import { getListItems } from "@/util/server-functions/getListItems";
+import { Item } from "@/types/item";
 
 const getLists = async () => {
   const supabase = createServerComponentClient({ cookies })
@@ -18,11 +20,33 @@ const getLists = async () => {
 
 export default async function Home() {
   const lists = await getLists();
+  const listItems = [];
+
+  if(lists) {
+    for(const list of lists) {
+      const items = await getListItems(list.id, list.list_key);
+
+      let shouldHideItems = false;
+
+      if(items){
+        if(items?.length > 4) {
+          shouldHideItems = true
+        }
+      }
+
+      listItems.push({
+        ...list,
+        items: items,
+        shouldHideItems
+      })
+    }
+  }
+
 
   return (
     <main className="container px-10 py-10 mx-auto">
       <div className="flex flex-row flex-wrap">
-        {lists?.map(list => {
+        {listItems && listItems?.map(list => {
           return (
             <div className="flex basis-1/3 flex-col p-5" key={list.id}>
               <div className="shadow" >
@@ -33,17 +57,38 @@ export default async function Home() {
                     <FiArrowRight />
                   </Link>
                 </h2>
-                <div className="p-5 flex flex-row">
-                  <div className="basis-1/2">
-                    Rice
-                  </div>
-                  <div className="divider basis-1/4">
-                    -
-                  </div>
-                  <div className="basis-1/2">
-                    Quantity
-                  </div>
-                </div>
+                <section className=" relative max-h-64 overflow-hidden">
+                  {list.items && list.items.map((item: Item) => {
+                    return (
+                      <div className="px-5 py-3 flex flex-row" key={item.id}>
+                        <div className="basis-1/2">
+                          test
+                          {item.name}
+                        </div>
+                        <div className="divider basis-1/4">
+                          -
+                        </div>
+                        <div className="basis-1/2">
+                          {item.quantity + ' ' + item.unit}
+                        </div>
+                      </div>
+                    )
+                  })}
+                  
+                  {list.shouldHideItems && (
+                    <Link 
+                      href={"/list/" + list.id}
+                      className="text-center 
+                      bg-indigo-100 opacity-90  py-3 
+                      absolute bottom-0 left-0 right-0 z-2">
+                      <span className="opacity-100 text-primary-default font-medium">
+                        View More
+                      </span>
+                    </Link>
+                  )}
+                </section>
+
+                
               </div>
             </div>
           )

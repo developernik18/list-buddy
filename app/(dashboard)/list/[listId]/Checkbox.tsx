@@ -20,7 +20,7 @@ export default function Checkbox(
   const [checked, setChecked] = useState(isChecked);
   
   const handleChange = async (e: ChangeEvent) => {
-    const response = await fetch('http://localhost:3000/api/update-item', {
+    const response = await fetch('http://localhost:3000/api/update-item-purchased', {
       method: "POST",
       headers: { "Content-Type": "appplication/json" },
       body: JSON.stringify({
