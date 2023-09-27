@@ -8,6 +8,7 @@ export const getListInfo = async (id: number) => {
     
     const {data: {session}} = await supabase.auth.getSession();
 
+    console.log(session);
     const {data, error} = await supabase
       .from('lists')
       .select()

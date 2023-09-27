@@ -7,6 +7,13 @@ import Link from "next/link";
 import { List } from "@/types/list";
 import { Item } from "@/types/item";
 
+function returnDate(expiry_date: string | null) {
+  if(expiry_date) {
+    return expiry_date;
+  }
+  return '';
+}
+
 export default function ItemEditForm(
   {
     listDetails,
@@ -24,7 +31,7 @@ export default function ItemEditForm(
   const [unit, setUnit] = useState(itemDetails.unit);
   const [currency, setCurrency] = useState(itemDetails.currency);
   const [price, setPrice] = useState(itemDetails.price);
-  const [expiryDate, setExpiryDate] = useState(String(itemDetails.expiry_date));
+  const [expiryDate, setExpiryDate] = useState(returnDate(itemDetails.expiry_date));
   const [notes, setNotes] = useState(itemDetails.notes);
 
 

@@ -48,7 +48,7 @@ export default async function Home() {
       <div className="flex flex-row flex-wrap">
         {listItems && listItems?.map(list => {
           return (
-            <div className="flex basis-1/3 flex-col p-5" key={list.id}>
+            <div className="flex basis-full md:basis-1/2 lg:basis-1/3 flex-col p-5" key={list.id}>
               <div className="shadow" >
                 <h2 className=" bg-indigo-50 p-5 text-primary-default text-lg font-medium py-3
                   flex flex-row justify-between items-center border-b-2">
@@ -62,7 +62,6 @@ export default async function Home() {
                     return (
                       <div className="px-5 py-3 flex flex-row" key={item.id}>
                         <div className="basis-1/2">
-                          test
                           {item.name}
                         </div>
                         <div className="divider basis-1/4">
