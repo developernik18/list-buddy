@@ -5,11 +5,18 @@ import { getListItems } from "@/util/server-functions/getListItems";
 import Checkbox from "./Checkbox";
 import { List } from "@/types/list";
 import { Item } from "@/types/item";
+import { redirect } from "next/navigation";
+import { sortListItems } from "@/util/sort-functions/sortListItems";
+import Delete from "./Delete";
 
 export default async function ListInDetail({ params }: { params: { listId: number } }) {
   const listInfo: List = await getListInfo(params.listId);
-  const listItems: Item[] | null | undefined = await getListItems(params.listId, listInfo?.list_key);
+  if (!listInfo) redirect("/login");
 
+  let listItems: Item[] | null = await getListItems(params.listId, listInfo?.list_key);
+  if (listItems) {
+    listItems = sortListItems(listItems);
+  }
   let showTable = false;
 
   if (listItems?.length) {
@@ -90,11 +97,12 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
                           <Checkbox isChecked={item.purchased} item={item} />
                         </td>
                         <td className="flex flex-row gap-2 items-center justify-center h-14">
-                          <Link href={"/list/" + params.listId + "/" +item?.id + "/edit"}>
+                          <Link href={"/list/" + params.listId + "/" + item?.id + "/edit"}>
                             <FiEdit />
                           </Link>
                           <span>
-                            <FiTrash />
+                            <Delete />
+                            {/* <FiTrash /> */}
                           </span>
                         </td>
                       </tr>

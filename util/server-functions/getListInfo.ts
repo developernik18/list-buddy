@@ -1,5 +1,5 @@
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-// import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export const getListInfo = async (id: number) => {
@@ -8,7 +8,6 @@ export const getListInfo = async (id: number) => {
     
     const {data: {session}} = await supabase.auth.getSession();
 
-    console.log(session);
     const {data, error} = await supabase
       .from('lists')
       .select()
@@ -19,10 +18,9 @@ export const getListInfo = async (id: number) => {
     if(data) {
       return data;
     } else if(error) {
-      console.log(error);
-      
+      return null;
     }
   } catch {
-    // redirect("/login");
+    redirect("/login");
   }
 }

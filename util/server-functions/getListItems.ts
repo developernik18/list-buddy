@@ -18,6 +18,7 @@ export async function getListItems(listId: number, listKey: string) {
     return data;
   } catch {
     // redirect('/login');
+    return null;
   }
 
 }

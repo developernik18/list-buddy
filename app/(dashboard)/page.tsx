@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { FiArrowRight } from "react-icons/fi";
 import { getListItems } from "@/util/server-functions/getListItems";
 import { Item } from "@/types/item";
+import { ListItems } from "@/types/listItems";
+import { sortListItems } from "@/util/sort-functions/sortListItems";
 
 const getLists = async () => {
   const supabase = createServerComponentClient({ cookies })
@@ -20,11 +22,14 @@ const getLists = async () => {
 
 export default async function Home() {
   const lists = await getLists();
-  const listItems = [];
+  const listItems : ListItems[] = [];
 
   if(lists) {
     for(const list of lists) {
-      const items = await getListItems(list.id, list.list_key);
+      let items = await getListItems(list.id, list.list_key);
+      if(items) {
+        items = sortListItems(items);
+      }
 
       let shouldHideItems = false;
 
