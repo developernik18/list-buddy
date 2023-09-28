@@ -8,7 +8,7 @@ export type Item = {
   currency: string,
   price: number,
   notes: string,
-  user_email: string,
+  user_id: string,
   purchased: boolean,
   list_key: string,
   list_id: number

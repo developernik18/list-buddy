@@ -12,7 +12,7 @@ export const getListInfo = async (id: number) => {
       .from('lists')
       .select()
       .eq('id', id)
-      .eq('user_email', session?.user.email)
+      .eq('user_id', session?.user.id)
       .single()
   
     if(data) {

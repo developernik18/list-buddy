@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   const {data, error} = await supabase.from('lists')
     .insert({
       ...list,
-      user_email: session?.user.email
+      user_id: session?.user.id
     })
     .select()
     .single()

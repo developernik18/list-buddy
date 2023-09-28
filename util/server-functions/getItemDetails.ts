@@ -6,7 +6,7 @@ export const getItemDetails = async (list_key: string, list_id: number, itemId: 
   try{
     const supabase = createServerActionClient({cookies});
     const {data, error} = await supabase
-      .from('Items')
+      .from('items')
       .select()
       .eq('list_key', list_key)
       .eq('list_id', list_id)

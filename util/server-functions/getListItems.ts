@@ -10,7 +10,7 @@ export async function getListItems(listId: number, listKey: string) {
     const {data: {session}} = await supabase.auth.getSession();
 
     const {data, error} = await supabase
-                                  .from ('Items')
+                                  .from ('items')
                                   .select()
                                   .eq('list_id', listId)
                                   .eq('list_key', listKey)

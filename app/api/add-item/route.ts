@@ -9,10 +9,10 @@ export async function POST(request: NextRequest) {
   const {data: {session}} = await supabase.auth.getSession();
 
   const {data, error} = await supabase
-                        .from('Items')
+                        .from('items')
                         .insert({
                           ...req,
-                          user_email: session?.user.email
+                          user_id: session?.user.id
                         })
                         .select()
                         .single()

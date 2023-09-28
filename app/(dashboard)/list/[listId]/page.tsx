@@ -91,7 +91,9 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
                           {item.quantity + ' ' + item.unit}
                         </td>
                         <td>
-                          {String(item.expiry_date)}
+                          {item.expiry_date && String(item.expiry_date)}
+                          {!item.expiry_date && <span> - </span>}
+
                         </td>
                         <td>
                           <Checkbox isChecked={item.purchased} item={item} />
@@ -101,8 +103,7 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
                             <FiEdit />
                           </Link>
                           <span>
-                            <Delete />
-                            {/* <FiTrash /> */}
+                            <Delete item={item}/>
                           </span>
                         </td>
                       </tr>
