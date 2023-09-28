@@ -109,18 +109,6 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
       <div className="row flex flex-col md:flex-row justify-between">
         <label className="relative flex flex-col gap-4 basis-2/5">
           Price
-          <input 
-            type="number" 
-            id="item-price" 
-            min={0}
-            step={"any"}
-            value={price}
-            onChange={(e) => {
-              let price = Number(e.target.value).toFixed(2);
-              setPrice(Number(price))
-            }}
-            className="bg-gray-100 px-4 pl-20 py-2 w-full outline-offset-2" 
-          />
           <select 
             name="currency" 
             id="currency" 
@@ -138,6 +126,19 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
               )
             })}
           </select>
+          <input 
+            type="number" 
+            id="item-price" 
+            min={0}
+            step={"any"}
+            value={price}
+            onChange={(e) => {
+              let price = Number(e.target.value).toFixed(2);
+              setPrice(Number(price))
+            }}
+            className="bg-gray-100 px-4 pl-20 py-2 w-full outline-offset-2" 
+          />
+          
         </label>
         <label className="flex flex-col gap-4 basis-2/5">
           Expiry Date

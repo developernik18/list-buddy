@@ -62,7 +62,7 @@ export default async function Home() {
                     <FiArrowRight />
                   </Link>
                 </h2>
-                <section className=" relative max-h-64 overflow-hidden">
+                <section className=" relative h-64 max-h-64 overflow-hidden">
                   {list.items && list.items.map((item: Item) => {
                     return (
                       <div className="px-5 py-3 flex flex-row" key={item.id}>

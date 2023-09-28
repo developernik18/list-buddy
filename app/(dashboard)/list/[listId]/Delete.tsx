@@ -11,7 +11,7 @@ export default function Delete({item} : {item: List}) {
       headers: {"Content-Type": "application/json" },
       body: JSON.stringify(item)
     })
-    console.log('delete');
+    console.log(response);
   }
 
   return (

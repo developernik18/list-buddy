@@ -16,6 +16,9 @@ export default function DashboardHeader({user}: userType) {
         <nav className="nav">
           {user && (
             <div className="flex flex-row items-center gap-10">
+              <Link href={"/all-items"} className="hidden sm:block">
+                All Items
+              </Link>
               <Link href={"/profile"} className="hidden sm:block">
                 {user.email}
               </Link>

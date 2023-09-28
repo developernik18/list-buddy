@@ -6,19 +6,25 @@ export async function DELETE(req: NextRequest) {
   const request = await req.json();
   const supabase = createRouteHandlerClient({cookies});
 
+  const {data: {session}} = await supabase.auth.getSession();
+  console.log(request);
   
-  const {data, error} = await supabase
+  const response = await supabase
                           .from('items')
                           .delete()
-                          .eq("user_id", request.user_id)
-                          .eq("list_key", request.list_key)
                           .eq("id", request.id)
+                          .eq("user_id", session?.user.id);
 
-  if(data) {
-    return NextResponse.json(data);
+  const statusText = 'Deleted Successfully';
+  if(response.status === 204) {
+    return NextResponse.json(statusText, {
+      status: 200,
+      statusText: statusText
+    });
   } else {
-    return NextResponse.json("Error in update", {status: 500});
+    return NextResponse.json("Error while deletion", {
+      status: response.status
+    });
   }
-
 
 }
