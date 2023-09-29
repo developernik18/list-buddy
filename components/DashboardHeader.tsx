@@ -19,9 +19,9 @@ export default function DashboardHeader({user}: userType) {
               <Link href={"/all-items"} className="hidden sm:block">
                 All Items
               </Link>
-              <Link href={"/profile"} className="hidden sm:block">
+              <div className="hidden text-gray-500 sm:block">
                 {user.email}
-              </Link>
+              </div>
               <LogoutButton />
             </div>
           )}

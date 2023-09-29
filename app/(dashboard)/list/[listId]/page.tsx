@@ -2,12 +2,12 @@ import Link from "next/link";
 import { FiArrowLeft, FiEdit, FiTrash } from "react-icons/fi";
 import { getListInfo } from "@/util/server-functions/getListInfo";
 import { getListItems } from "@/util/server-functions/getListItems";
-import Checkbox from "./Checkbox";
+import Checkbox from "@/components/Checkbox";
 import { List } from "@/types/list";
 import { Item } from "@/types/item";
 import { redirect } from "next/navigation";
 import { sortListItems } from "@/util/sort-functions/sortListItems";
-import Delete from "./Delete";
+import Delete from "../../../../components/Delete";
 
 export default async function ListInDetail({ params }: { params: { listId: number } }) {
   const listInfo: List = await getListInfo(params.listId);

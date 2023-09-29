@@ -1,9 +1,9 @@
 "use client"
 
-import { List } from "@/types/list";
+import { Item } from "@/types/item";
 import { FiTrash } from "react-icons/fi"
 
-export default function Delete({item} : {item: List}) {
+export default function Delete({item} : {item: Item}) {
 
   const handleDelete = async () => {
     const response = await fetch('http://localhost:3000/api/delete-item', {
