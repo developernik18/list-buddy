@@ -42,28 +42,32 @@ export default async function Home() {
       }
 
       let shouldHideItems = false;
+      let noItemPresent = false;
 
       if(items){
         if(items?.length > 4) {
-          shouldHideItems = true
+          shouldHideItems = true;
+        } else if(items.length === 0) {
+          noItemPresent = true;
         }
       }
 
       listItems.push({
         ...list,
         items: items,
-        shouldHideItems
+        shouldHideItems,
+        noItemPresent
       })
     }
   }
 
 
   return (
-    <main className="container px-10 py-10 mx-auto">
+    <main className="container px-5 md:px-10 py-10 mx-auto">
       <div className="flex flex-row flex-wrap">
         {displayList && listItems?.map(list => {
           return (
-            <div className="flex basis-full md:basis-1/2 lg:basis-1/3 flex-col p-5" key={list.id}>
+            <div className="flex basis-full md:basis-1/2 lg:basis-1/3 flex-col p-0 md:p-5" key={list.id}>
               <div className="shadow" >
                 <h2 className=" bg-indigo-50 p-5 text-primary-default text-lg font-medium py-3
                   flex flex-row justify-between items-center border-b-2">
@@ -73,6 +77,12 @@ export default async function Home() {
                   </Link>
                 </h2>
                 <section className=" relative h-64 max-h-64 overflow-hidden">
+                  {list.noItemPresent && (
+                    <div className="flex justify-center p-5">
+                      No Items in the list
+                    </div>
+                  )}
+                  
                   {list.items && list.items.map((item: Item) => {
                     return (
                       <div className="px-5 py-3 flex flex-row" key={item.id}>
@@ -116,7 +126,7 @@ export default async function Home() {
       </div>
 
       {/* Create list button container */}
-      <div className="create-list-button-container flex flex-row justify-center">
+      <div className="create-list-button-container flex flex-row justify-center mt-5">
         <Link
           href={"/create-new-list"}
           className="primary-button">

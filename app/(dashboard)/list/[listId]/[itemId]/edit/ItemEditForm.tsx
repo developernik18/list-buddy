@@ -3,7 +3,6 @@
 import { FormEvent, useState } from "react";
 import { selectUnitOptions } from "@/util/selection-list/for-unit";
 import { selectCurrencyOptions } from "@/util/selection-list/for-currency";
-import Link from "next/link";
 import { List } from "@/types/list";
 import { Item } from "@/types/item";
 
@@ -73,7 +72,7 @@ export default function ItemEditForm(
     <form
       onSubmit={(ev) => handleFormSubmission(ev)}
       className="body bg-white py-5 px-14 min-h-full flex flex-col gap-5">
-      <div className="row flex flex-col md:flex-row justify-between">
+      <div className="row flex flex-col md:flex-row justify-between gap-10 md:gap-5">
         <label className="flex flex-col gap-4 basis-2/5">
           Item Name
           <input
@@ -114,7 +113,7 @@ export default function ItemEditForm(
           </select>
         </label>
       </div>
-      <div className="row flex flex-col md:flex-row justify-between">
+      <div className="row flex flex-col md:flex-row justify-between gap-10 md:gap-5">
         <label className="relative flex flex-col gap-4 basis-2/5">
           Price
           <input
@@ -160,7 +159,7 @@ export default function ItemEditForm(
         </label>
 
       </div>
-      <div className="row flex flex-col md:flex-row items-end justify-between">
+      <div className="row flex flex-col md:flex-row items-stretch md:items-end justify-between gap-10 md:gap-5">
         <label htmlFor="notes" className="flex flex-col gap-4 basis-2/5">
           Notes:
           <textarea
@@ -189,9 +188,9 @@ export default function ItemEditForm(
       {successMessage && (
         <div className="success-xl text-right">
           {successMessage + " "}
-          <Link href={"/list/" + itemDetails.list_id} className=" text-primary-default">
+          <a href={"/list/" + itemDetails.list_id} className=" text-primary-default">
             Open List
-          </Link>
+          </a>
         </div>
       )}
     </form>

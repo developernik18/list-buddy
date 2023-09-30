@@ -8,6 +8,7 @@ import { useState } from "react";
 
 export default function CreateNewList() {
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
   const [listTitle, setListTitle] = useState('');
   let router = useRouter();
 
@@ -24,16 +25,16 @@ export default function CreateNewList() {
       headers: {"Content-Type": "application/json"}
     })
 
-    const {data, error} = await response.json();
-    setLoading(false);
-
-    if(error) {
+    if(response.status === 201) {
+      setMessage(response.statusText);
+      const data = await response.json();
+      router.push("/list/" + data.id + '/add-items');
+    } else {
+      setMessage(response.statusText);
+      const error = await response.json();
       console.log(error);
     }
-
-    if(!error) {
-      router.push("/list/" + data.id + '/add-items');
-    }
+    setLoading(false);
   }
 
   return (
@@ -67,10 +68,14 @@ export default function CreateNewList() {
                 {loading && <span>Loading...</span>}
                 {!loading && <span>Submit</span>}
               </button>
+              <div className="success-xl flex justify-end">
+                {message}
+              </div>
             </form>
 
           </div>
         </div>
+        
       </section>
     </main>
   )

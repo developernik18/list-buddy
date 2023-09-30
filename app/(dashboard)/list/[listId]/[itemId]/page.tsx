@@ -36,7 +36,7 @@ export default async function EditItem({ params }: {params: {listId: number, ite
 
         <section className="flex justify-center items-center text-xl">
           {item && (
-            <section className="flex flex-row gap-5 p-10 bg-white min-w-[60%] justify-between">
+            <section className="flex flex-row gap-5 p-10  bg-white min-w-[60%] justify-between">
               <div className="content flex flex-row gap-5">
                 <div className="flex flex-col gap-2 text-gray-600">
                   <div>

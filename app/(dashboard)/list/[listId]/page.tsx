@@ -27,7 +27,7 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
 
   return (
     <main className="bg-gray-50 min-h-[90vh]">
-      <section className="container px-10 py-10 mx-auto flex flex-col gap-2">
+      <section className="container px-5 md:px-10 py-10 mx-auto flex flex-col gap-2">
         <Link href={"/"} className="w-10">
           <FiArrowLeft />
         </Link>
@@ -50,13 +50,13 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
 
         {showTable &&
           <section className="w-full lg:w-4/5 xl:w-3/5 mx-auto">
-            <div className="top bg-white border-b-2 p-3 px-10 text-left font-medium text-xl">
+            <div className="top bg-white border-b-2 p-3 px-5 md:px-10 text-left font-medium text-xl">
               <span className="text-secondary-default">
                 {listInfo?.title}
               </span>
             </div>
 
-            <section className="p-10 bg-white shadow-md">
+            <section className="p-0 md:p-10 bg-white shadow-md">
               <table className="w-full">
                 <thead className=" bg-orange-100 text-secondary-default h-10">
                   <tr>
@@ -66,7 +66,7 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
                     <th>
                       Quantity with Unit
                     </th>
-                    <th>
+                    <th className="hidden md:block">
                       Expiry
                     </th>
                     <th>
@@ -90,7 +90,7 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
                         <td>
                           {item.quantity + ' ' + item.unit}
                         </td>
-                        <td>
+                        <td className="hidden md:block">
                           {item.expiry_date && String(item.expiry_date)}
                           {!item.expiry_date && <span> - </span>}
 

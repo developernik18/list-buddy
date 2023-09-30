@@ -7,5 +7,6 @@ export type ListItems = {
   user_id: string,
   list_key: string,
   shouldHideItems: boolean,
+  noItemPresent: boolean,
   items: Item[]
 }

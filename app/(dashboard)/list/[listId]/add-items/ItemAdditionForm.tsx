@@ -3,7 +3,6 @@
 import { FormEvent, useState } from "react";
 import { selectUnitOptions } from "@/util/selection-list/for-unit";
 import { selectCurrencyOptions } from "@/util/selection-list/for-currency";
-import Link from "next/link";
 
 export default function ItemAdditionForm({listId, listKey} : {listId: number, listKey: string}) {
   const [errorMessage, setErrorMessage] = useState('');
@@ -66,7 +65,7 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
     <form 
       onSubmit={(ev) => handleFormSubmission(ev)}
       className="body bg-white py-5 px-14 min-h-full flex flex-col gap-5">
-      <div className="row flex flex-col md:flex-row justify-between">
+      <div className="row flex flex-col md:flex-row justify-between gap-10 md:gap-5">
         <label className="flex flex-col gap-4 basis-2/5">
           Item Name
           <input 
@@ -106,7 +105,7 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
           </select>
         </label>
       </div>
-      <div className="row flex flex-col md:flex-row justify-between">
+      <div className="row flex flex-col md:flex-row justify-between gap-10 md:gap-5">
         <label className="relative flex flex-col gap-4 basis-2/5">
           Price
           <select 
@@ -152,11 +151,10 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
         </label>
         
       </div>
-      <div className="row flex flex-col md:flex-row items-end justify-between">
-        <label htmlFor="notes" className="flex flex-col gap-4 basis-2/5">
+      <div className="row flex flex-col md:flex-row items-stretch md:items-end justify-between gap-10 md:gap-5">
+        <label className="flex flex-col gap-4 basis-full sm:basis-2/5">
           Notes:
           <textarea
-            id="notes"
             className="bg-gray-100 px-4 py-2 w-full" 
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
@@ -181,9 +179,9 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
       {successMessage && (
         <div className="success-xl text-right">
           {successMessage + " "}
-          <Link href={"/list/" + listId} className=" text-primary-default">
+          <a href={"/list/" + listId} className=" text-primary-default">
             Open List
-          </Link>
+          </a>
         </div>
       )}
     </form>

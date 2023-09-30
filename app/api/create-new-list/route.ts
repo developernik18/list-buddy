@@ -12,15 +12,19 @@ export async function POST(request: NextRequest) {
   const {data: {session}} = await supabase.auth.getSession();
 
   // insert into list table.
-  const {data, error} = await supabase.from('lists')
+  const response = await supabase.from('lists')
     .insert({
       ...list,
+      user_email: session?.user.email,
       user_id: session?.user.id
     })
     .select()
     .single()
 
+  console.log(response);
 
-
-  return NextResponse.json({data, error})
+  return NextResponse.json(response.data, {
+    status: response.status,
+    statusText: response.statusText
+  });
 }
