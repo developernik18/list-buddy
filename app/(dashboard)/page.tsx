@@ -24,6 +24,16 @@ export default async function Home() {
   const lists = await getLists();
   const listItems : ListItems[] = [];
 
+  let displayList: boolean = false;
+  if(lists) {
+    if(lists?.length > 0) {
+      displayList = true;
+    } else {
+      displayList = false;
+    }
+  }
+
+
   if(lists) {
     for(const list of lists) {
       let items = await getListItems(list.id, list.list_key);
@@ -51,7 +61,7 @@ export default async function Home() {
   return (
     <main className="container px-10 py-10 mx-auto">
       <div className="flex flex-row flex-wrap">
-        {listItems && listItems?.map(list => {
+        {displayList && listItems?.map(list => {
           return (
             <div className="flex basis-full md:basis-1/2 lg:basis-1/3 flex-col p-5" key={list.id}>
               <div className="shadow" >
@@ -97,6 +107,12 @@ export default async function Home() {
             </div>
           )
         })}
+
+        {!displayList && (
+          <div className="flex justify-center text-center p-10 text-xl w-full">
+            No List created yet.
+          </div>
+        )}
       </div>
 
       {/* Create list button container */}
