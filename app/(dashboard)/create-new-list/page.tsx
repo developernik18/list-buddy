@@ -67,7 +67,7 @@ export default function CreateNewList() {
                 className= {loading ? "disabled-button-responsive" : "primary-button-responsive "}
                 disabled={loading}
               > 
-                {loading && <span>Loading...</span>}
+                {loading && <span>Submitting...</span>}
                 {!loading && <span>Submit</span>}
               </button>
               <div className="success-xl flex justify-end">

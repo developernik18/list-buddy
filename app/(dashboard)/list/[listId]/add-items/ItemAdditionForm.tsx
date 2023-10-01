@@ -167,7 +167,7 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
           className={loading? "disabled-button" : "primary-button"} 
           disabled={loading}
         >
-          {loading && <span>Loading...</span> } 
+          {loading && <span>Adding...</span> } 
           {!loading && <span>Add to List</span> } 
         </button>
       </div>

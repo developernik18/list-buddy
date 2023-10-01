@@ -177,7 +177,7 @@ export default function ItemEditForm(
           className={loading ? "disabled-button" : "primary-button"}
           disabled={loading}
         >
-          {loading && <span>Loading...</span>}
+          {loading && <span>Updating...</span>}
           {!loading && <span>Update Item</span>}
         </button>
       </div>
