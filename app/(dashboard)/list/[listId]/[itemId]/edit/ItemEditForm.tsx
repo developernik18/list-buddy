@@ -8,7 +8,7 @@ import { Item } from "@/types/item";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-function returnDate(expiry_date: string | null) {
+function returnDate(expiry_date: Date | null) {
   if(expiry_date) {
     return expiry_date;
   }

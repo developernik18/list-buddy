@@ -14,6 +14,9 @@ export default function Delete({item} : {item: Item}) {
       body: JSON.stringify(item)
     })
     // console.log(response);
+    if(response.status === 200) {
+      location.reload();
+    }
   }
 
   return (
