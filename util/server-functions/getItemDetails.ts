@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 
 export const getItemDetails = async (list_key: string, list_id: number, itemId: number, ) => {
   try{
+  
     const supabase = createServerActionClient({cookies});
     const {data, error} = await supabase
       .from('items')
