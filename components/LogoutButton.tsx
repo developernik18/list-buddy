@@ -16,7 +16,7 @@ export default function LogoutButton() {
     }
 
     if(error) {
-      console.log(error);
+      // console.log(error);
     }
 
   }

@@ -14,7 +14,7 @@ const getLists = async () => {
     .select();
 
   if(error) {
-    console.log(error);
+    // console.log(error);
   }
 
   return data;

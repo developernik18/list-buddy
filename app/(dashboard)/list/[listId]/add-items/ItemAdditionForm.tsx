@@ -4,6 +4,8 @@ import { FormEvent, useState } from "react";
 import { selectUnitOptions } from "@/util/selection-list/for-unit";
 import { selectCurrencyOptions } from "@/util/selection-list/for-currency";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
 export default function ItemAdditionForm({listId, listKey} : {listId: number, listKey: string}) {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -34,7 +36,7 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
     setSuccessMessage('');
     
 
-    const res = await fetch('http://localhost:3000/api/add-item', {
+    const res = await fetch(baseUrl + '/api/add-item', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

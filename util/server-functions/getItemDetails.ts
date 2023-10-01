@@ -16,7 +16,7 @@ export const getItemDetails = async (list_key: string, list_id: number, itemId: 
     if(data) {
       return data;
     } else if(error) {
-      console.log(error);
+      // console.log(error);
       
     }
   } catch {

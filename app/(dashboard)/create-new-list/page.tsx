@@ -6,6 +6,8 @@ import {useRouter} from "next/navigation";
 import { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
 export default function CreateNewList() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -19,7 +21,7 @@ export default function CreateNewList() {
   const handleSubmit = async (ev: FormEvent) => {
     ev.preventDefault();
     setLoading(true);
-    const response = await fetch('http://localhost:3000/api/create-new-list', {
+    const response = await fetch(baseUrl + '/api/create-new-list', {
       method: "POST",
       body: JSON.stringify({"title": listTitle}),
       headers: {"Content-Type": "application/json"}
@@ -32,7 +34,7 @@ export default function CreateNewList() {
     } else {
       setMessage(response.statusText);
       const error = await response.json();
-      console.log(error);
+      // console.log(error);
     }
     setLoading(false);
   }

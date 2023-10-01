@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     .select()
     .single()
 
-  console.log(response);
+  // console.log(response);
 
   return NextResponse.json(response.data, {
     status: response.status,

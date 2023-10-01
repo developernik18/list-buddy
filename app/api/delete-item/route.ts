@@ -7,7 +7,7 @@ export async function DELETE(req: NextRequest) {
   const supabase = createRouteHandlerClient({cookies});
 
   const {data: {session}} = await supabase.auth.getSession();
-  console.log(request);
+  // console.log(request);
   
   const response = await supabase
                           .from('items')

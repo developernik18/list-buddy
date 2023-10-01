@@ -8,6 +8,8 @@ type Item = {
   "list_key": string
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
 export default function Checkbox(
   {
     isChecked,
@@ -20,7 +22,7 @@ export default function Checkbox(
   const [checked, setChecked] = useState(isChecked);
   
   const handleChange = async (e: ChangeEvent) => {
-    const response = await fetch('http://localhost:3000/api/update-item-purchased', {
+    const response = await fetch(baseUrl + '/api/update-item-purchased', {
       method: "POST",
       headers: { "Content-Type": "appplication/json" },
       body: JSON.stringify({

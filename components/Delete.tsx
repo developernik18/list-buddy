@@ -3,15 +3,17 @@
 import { Item } from "@/types/item";
 import { FiTrash } from "react-icons/fi"
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
 export default function Delete({item} : {item: Item}) {
 
   const handleDelete = async () => {
-    const response = await fetch('http://localhost:3000/api/delete-item', {
+    const response = await fetch(baseUrl + '/api/delete-item', {
       method: "DELETE",
       headers: {"Content-Type": "application/json" },
       body: JSON.stringify(item)
     })
-    console.log(response);
+    // console.log(response);
   }
 
   return (

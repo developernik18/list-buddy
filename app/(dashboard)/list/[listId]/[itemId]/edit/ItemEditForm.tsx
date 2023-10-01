@@ -6,6 +6,8 @@ import { selectCurrencyOptions } from "@/util/selection-list/for-currency";
 import { List } from "@/types/list";
 import { Item } from "@/types/item";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
 function returnDate(expiry_date: string | null) {
   if(expiry_date) {
     return expiry_date;
@@ -41,7 +43,7 @@ export default function ItemEditForm(
     setSuccessMessage('');
 
 
-    const res = await fetch('http://localhost:3000/api/update-item', {
+    const res = await fetch( baseUrl + '/api/update-item', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
