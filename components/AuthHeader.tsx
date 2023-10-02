@@ -3,7 +3,7 @@ import Link from "next/link"
 export default function AuthHeader() {
   
   return (
-    <header className=" shadow-sm px-10 py-4">
+    <header className="shadow-sm px-5 md:px-10 py-4 bg-white">
       <div className="container mx-auto flex flex-row justify-between items-center">
         <Link href={"/"} className="logo">
           List Buddy

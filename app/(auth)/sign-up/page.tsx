@@ -1,7 +1,7 @@
-"use client"
+"use client";
 // Form Event is used to accept event generated on submit of the form
 // usestate is used to display errors
-import { FormEvent, useState } from "react"; 
+import { FormEvent, useState } from "react";
 
 // AuthForm is a component that contains the form.
 import AuthForm from "../AuthForm";
@@ -9,52 +9,59 @@ import AuthForm from "../AuthForm";
 // createClientComponentClient is used to create supabase client
 // and this supabase client sends the form fields to supabase server
 // to sign up the user.
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-
-// useRouter is used to create router which is used to redirect the 
+// useRouter is used to create router which is used to redirect the
 // user to the verify page.
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
+import { ButtonText } from "@/types/buttons";
 
-
+const buttonText: ButtonText = {
+  default: "Sign up",
+  inProcess: "Registering...",
+};
 
 export default function SignUp() {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const supabase = createClientComponentClient();
   const router = useRouter();
 
-  const handleSubmit = async (ev: FormEvent, email: string, password: string) => {
+  const handleSubmit = async (
+    ev: FormEvent,
+    email: string,
+    password: string
+  ) => {
     ev.preventDefault();
 
-    const {error} = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: `${location.origin}/api/auth/callback`,
       },
-    })
+    });
 
-    if(error) {
+    if (error) {
       setError(error.message);
     }
 
-    if(!error) {
-      router.push('/verify');
+    if (!error) {
+      router.push("/verify");
     }
-  }
+  };
 
   return (
-    <main className="flex flex-col items-center bg-gray-100 pb-48">
-      <h2 className=" text-2xl py-16 text-primary-default font-semibold">
+    <main className="flex flex-col items-center h-full">
+      <h2
+        className="text-xl md:text-2xl 
+          py-10 md:py-16 
+          text-primary-default font-semibold"
+      >
         Sign Up
       </h2>
 
-      <AuthForm handleSubmit= {handleSubmit} />
-      {error && (
-        <div className="error">
-          {error}
-        </div>
-      )}
+      <AuthForm handleSubmit={handleSubmit} buttonText={buttonText} />
+      {error && <div className="error">{error}</div>}
     </main>
-  )
+  );
 }
