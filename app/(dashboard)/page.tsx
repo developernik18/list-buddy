@@ -1,53 +1,50 @@
-import Link from "next/link"
+import Link from "next/link";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { FiEdit, FiTrash } from "react-icons/fi";
 import { getListItems } from "@/util/server-functions/getListItems";
 import { Item } from "@/types/item";
 import { ListItems } from "@/types/listItems";
 import { sortListItems } from "@/util/sort-functions/sortListItems";
+import { isArrayEmpty } from "@/util/validation/empty";
+import { DeleteList } from "./DeleteList";
+import { FiEdit } from "react-icons/fi";
 
 const getLists = async () => {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createServerComponentClient({ cookies });
 
-  const {data, error} = await supabase.from('lists')
-    .select();
+  const { data, error } = await supabase.from("lists").select();
 
-  if(error) {
+  if (error) {
     // console.log(error);
   }
 
   return data;
-}
+};
 
 export default async function Home() {
   const lists = await getLists();
-  const listItems : ListItems[] = [];
+  const listItems: ListItems[] = [];
 
   let displayList: boolean = false;
-  if(lists) {
-    if(lists?.length > 0) {
-      displayList = true;
-    } else {
-      displayList = false;
-    }
+
+  if (lists) {
+    displayList = isArrayEmpty(lists);
   }
 
-
-  if(lists) {
-    for(const list of lists) {
+  if (lists) {
+    for (const list of lists) {
       let items = await getListItems(list.id, list.list_key);
-      if(items) {
+      if (items) {
         items = sortListItems(items);
       }
 
       let shouldHideItems = false;
       let noItemPresent = false;
 
-      if(items){
-        if(items?.length > 4) {
+      if (items) {
+        if (items?.length > 4) {
           shouldHideItems = true;
-        } else if(items.length === 0) {
+        } else if (items.length === 0) {
           noItemPresent = true;
         }
       }
@@ -56,72 +53,74 @@ export default async function Home() {
         ...list,
         items: items,
         shouldHideItems,
-        noItemPresent
-      })
+        noItemPresent,
+      });
     }
   }
-
 
   return (
     <main className="container px-5 md:px-10 py-10 mx-auto">
       <div className="flex flex-row flex-wrap">
-        {displayList && listItems?.map(list => {
-          return (
-            <div className="flex basis-full md:basis-1/2 lg:basis-1/3 flex-col p-0 md:p-5" key={list.id}>
-              <div className="shadow" >
-                <h2 className=" bg-indigo-50 p-5 text-primary-default text-lg font-medium py-3
-                  flex flex-row justify-between items-center border-b-2">
-                  <span>
-                    {list.title}
-                  </span>
-                  <span className="flex flex-row gap-1">
-                    <span className=" w-6">
-                      <FiEdit />
+        {displayList &&
+          listItems?.map((list) => {
+            return (
+              <div
+                className="flex flex-col basis-full md:basis-1/2 lg:basis-1/3 p-0 md:p-5"
+                key={list.id}
+              >
+                <div className="shadow">
+                  <h2
+                    className=" bg-indigo-50 p-5 text-primary-default text-lg font-medium py-3
+                    flex flex-row justify-between items-center border-b-2"
+                  >
+                    <span>{list.title}</span>
+                    <span className="flex flex-row gap-1">
+                      <span className=" w-6">
+                        <FiEdit />
+                      </span>
+                      <span className=" w-6 cursor-pointer">
+                        <DeleteList list={list}/>
+                      </span>
                     </span>
-                    <span className=" w-6 cursor-pointer">
-                      <FiTrash />
-                    </span>
-                  </span>
-                </h2>
-                <section className=" relative h-64 max-h-64 overflow-hidden">
-                  {list.noItemPresent && (
-                    <div className="flex justify-center p-5">
-                      No Items in the list
-                    </div>
-                  )}
-                  
-                  {list.items && list.items.map((item: Item) => {
-                    return (
-                      <div className="px-5 py-3 flex flex-row" key={item.id}>
-                        <div className="basis-1/2">
-                          {item.name}
-                        </div>
-                        <div className="divider basis-1/4">
-                          -
-                        </div>
-                        <div className="basis-1/2">
-                          {item.quantity + ' ' + item.unit}
-                        </div>
+                  </h2>
+                  <section className=" relative h-64 max-h-64 overflow-hidden">
+                    {list.noItemPresent && (
+                      <div className="flex justify-center p-5">
+                        No Items in the list
                       </div>
-                    )
-                  })}
-                  
-                  <Link 
-                    href={"/list/" + list.id}
-                    className="text-center 
-                    bg-gray-100 opacity-90  py-3 
-                    absolute bottom-0 left-0 right-0 z-2">
-                    <span className="opacity-100 text-secondary-default font-medium">
-                      Open List
-                    </span>
-                  </Link>
-                </section>
+                    )}
 
-                
+                    {list.items &&
+                      list.items.map((item: Item) => {
+                        return (
+                          <div
+                            className="px-5 py-3 flex flex-row"
+                            key={item.id}
+                          >
+                            <div className="basis-1/2">{item.name}</div>
+                            <div className="divider basis-1/4">-</div>
+                            <div className="basis-1/2">
+                              {item.quantity + " " + item.unit}
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                    <Link
+                      href={"/list/" + list.id}
+                      className="text-center 
+                    bg-gray-100 opacity-90  py-3 
+                    absolute bottom-0 left-0 right-0 z-2"
+                    >
+                      <span className="opacity-100 text-secondary-default font-medium">
+                        Open List
+                      </span>
+                    </Link>
+                  </section>
+                </div>
               </div>
-            </div>
-          )
-        })}
+            );
+          })}
 
         {!displayList && (
           <div className="flex justify-center text-center p-10 text-xl w-full">
@@ -132,12 +131,10 @@ export default async function Home() {
 
       {/* Create list button container */}
       <div className="create-list-button-container flex flex-row justify-center mt-5">
-        <Link
-          href={"/create-new-list"}
-          className="primary-button">
+        <Link href={"/create-new-list"} className="primary-button">
           Create New List
         </Link>
       </div>
     </main>
-  )
+  );
 }

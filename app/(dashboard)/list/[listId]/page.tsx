@@ -26,6 +26,10 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
     showTable = false;
   }
 
+  const handleListDelete = () => {
+    console.log('delete');
+  }
+
   return (
     <main className="bg-gray-50 min-h-[90vh]">
       <section className="container px-5 md:px-10 py-10 mx-auto flex flex-col gap-2">
