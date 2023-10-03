@@ -5,6 +5,7 @@ import Link from "next/link";
 import Delete from "@/components/Delete";
 import Checkbox from "@/components/Checkbox";
 import { FiEdit } from "react-icons/fi";
+import { currencyValueToLabel } from "@/util/selection-list/for-currency";
 
 export default async function AllItems() {
   const supabase = createServerActionClient({cookies})
@@ -64,6 +65,9 @@ export default async function AllItems() {
                   Quantity with Unit
                 </th>
                 <th>
+                  Price
+                </th>
+                <th>
                   Expiry
                 </th>
                 <th>
@@ -86,6 +90,9 @@ export default async function AllItems() {
                     </td>
                     <td>
                       {item.quantity + ' ' + item.unit}
+                    </td>
+                    <td>
+                      {currencyValueToLabel(item.currency) + ' ' + item.price}
                     </td>
                     <td>
                       {item.expiry_date && String(item.expiry_date)}

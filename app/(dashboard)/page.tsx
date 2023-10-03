@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { FiArrowRight } from "react-icons/fi";
+import { FiEdit, FiTrash } from "react-icons/fi";
 import { getListItems } from "@/util/server-functions/getListItems";
 import { Item } from "@/types/item";
 import { ListItems } from "@/types/listItems";
@@ -71,10 +71,17 @@ export default async function Home() {
               <div className="shadow" >
                 <h2 className=" bg-indigo-50 p-5 text-primary-default text-lg font-medium py-3
                   flex flex-row justify-between items-center border-b-2">
-                  {list.title}
-                  <Link href={"/list/" + list.id}>
-                    <FiArrowRight />
-                  </Link>
+                  <span>
+                    {list.title}
+                  </span>
+                  <span className="flex flex-row gap-1">
+                    <span className=" w-6">
+                      <FiEdit />
+                    </span>
+                    <span className=" w-6 cursor-pointer">
+                      <FiTrash />
+                    </span>
+                  </span>
                 </h2>
                 <section className=" relative h-64 max-h-64 overflow-hidden">
                   {list.noItemPresent && (
@@ -99,17 +106,15 @@ export default async function Home() {
                     )
                   })}
                   
-                  {list.shouldHideItems && (
-                    <Link 
-                      href={"/list/" + list.id}
-                      className="text-center 
-                      bg-indigo-100 opacity-90  py-3 
-                      absolute bottom-0 left-0 right-0 z-2">
-                      <span className="opacity-100 text-primary-default font-medium">
-                        View More
-                      </span>
-                    </Link>
-                  )}
+                  <Link 
+                    href={"/list/" + list.id}
+                    className="text-center 
+                    bg-gray-100 opacity-90  py-3 
+                    absolute bottom-0 left-0 right-0 z-2">
+                    <span className="opacity-100 text-secondary-default font-medium">
+                      Open List
+                    </span>
+                  </Link>
                 </section>
 
                 

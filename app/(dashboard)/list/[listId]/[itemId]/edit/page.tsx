@@ -12,7 +12,7 @@ export default async function EditItem({ params }: {params: {listId: number, ite
 
   return (
     <main className="bg-gray-50 h-[90vh]">
-      <section className="container px-10 py-10 mx-auto flex flex-col gap-2">
+      <section className="container px-5 md:px-10 py-10 mx-auto flex flex-col gap-2">
         <Link href={"/list/" + params.listId} className="w-10">
           <FiArrowLeft />
         </Link>

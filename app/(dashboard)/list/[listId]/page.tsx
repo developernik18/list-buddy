@@ -8,6 +8,7 @@ import { Item } from "@/types/item";
 import { redirect } from "next/navigation";
 import { sortListItems } from "@/util/sort-functions/sortListItems";
 import Delete from "../../../../components/Delete";
+import { currencyValueToLabel } from "@/util/selection-list/for-currency";
 
 export default async function ListInDetail({ params }: { params: { listId: number } }) {
   const listInfo: List = await getListInfo(params.listId);
@@ -33,7 +34,7 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
         </Link>
 
         {!showTable &&
-          <section className="w-full lg:w-4/5 xl:w-3/5 mx-auto 
+          <section className="w-full lg:w-4/5 xl:w-/5 mx-auto 
           flex flex-col justify-center align-middle">
             <span className=" text-red-500 font-medium text-xl text-center">
               No Items present in {listInfo.title} List.
@@ -49,7 +50,7 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
         }
 
         {showTable &&
-          <section className="w-full lg:w-4/5 xl:w-3/5 mx-auto">
+          <section className="w-full mx-auto">
             <div className="top bg-white border-b-2 p-3 px-5 md:px-10 text-left font-medium text-xl">
               <span className="text-secondary-default">
                 {listInfo?.title}
@@ -66,8 +67,11 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
                     <th>
                       Quantity with Unit
                     </th>
-                    <th className="hidden md:block">
-                      Expiry
+                    <th>
+                      Price
+                    </th>
+                    <th className="hidden md:table-cell">
+                      Expiry Date
                     </th>
                     <th>
                       Purchased
@@ -89,6 +93,9 @@ export default async function ListInDetail({ params }: { params: { listId: numbe
                         </td>
                         <td>
                           {item.quantity + ' ' + item.unit}
+                        </td>
+                        <td>
+                          {currencyValueToLabel(item.currency) + ' ' + item.price}
                         </td>
                         <td className="hidden md:block">
                           {item.expiry_date && String(item.expiry_date)}
