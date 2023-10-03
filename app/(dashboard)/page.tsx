@@ -65,7 +65,9 @@ export default async function Home() {
           listItems?.map((list) => {
             return (
               <div
-                className="flex flex-col basis-full md:basis-1/2 lg:basis-1/3 p-0 md:p-5"
+                className="flex flex-col 
+                  basis-full md:basis-1/2 lg:basis-1/3 
+                  p-0 md:p-5 py-5"
                 key={list.id}
               >
                 <div className="shadow">
