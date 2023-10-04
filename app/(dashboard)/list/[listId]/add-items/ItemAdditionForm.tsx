@@ -66,7 +66,7 @@ export default function ItemAdditionForm({listId, listKey} : {listId: number, li
   return (
     <form 
       onSubmit={(ev) => handleFormSubmission(ev)}
-      className="body bg-white py-5 px-14 min-h-full flex flex-col gap-5">
+      className="body bg-white  px-5 sm:px-10 md:px-14 py-5 min-h-full flex flex-col gap-5">
       <div className="row flex flex-col md:flex-row justify-between gap-10 md:gap-5">
         <label className="flex flex-col gap-4 basis-2/5">
           Item Name

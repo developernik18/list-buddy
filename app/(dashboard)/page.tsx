@@ -80,7 +80,7 @@ export default async function Home() {
                       <span className=" w-6">
                         <FiEdit />
                       </span>
-                      <span className=" w-6 cursor-pointer">
+                      <span className=" w-6">
                         <DeleteList list={list}/>
                       </span>
                     </span>

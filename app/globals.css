@@ -20,16 +20,59 @@
 .primary-button {
   @apply 
   px-8 md:px-10 
-  py-2 md:py-3 
+  py-2
   text-sm md:text-base
   bg-primary-default text-white
+}
+
+.danger-outline-button {
+  @apply 
+  px-8 md:px-10 
+  py-2 
+  text-sm md:text-base
+  bg-white text-warning-default 
+  outline outline-1 outline-warning-default
+}
+
+.danger-outline-button:hover {
+  @apply bg-warning-default text-white  
+}
+
+
+.neutral-outline-button {
+  @apply 
+  px-8 md:px-10 
+  py-2 
+  text-sm md:text-base
+  bg-white text-gray-500 
+  outline outline-1 outline-gray-500
+}
+
+.neutral-outline-button:hover {
+  @apply bg-gray-500 text-white  
+}
+
+
+
+
+.safe-outline-button {
+  @apply 
+  px-8 md:px-10 
+  py-2 
+  text-sm md:text-base
+  bg-white text-success-default
+  outline outline-1 outline-success-default
+}
+
+.safe-outline-button:hover {
+  @apply bg-success-default text-white  
 }
 
 
 .disabled-button {
   @apply
   px-8 md:px-10 
-  py-2 md:py-3 
+  py-2
   text-sm md:text-base
   bg-gray-400 text-white
 }
@@ -50,9 +93,9 @@
 }
 
 .error-xl {
-  @apply text-red-500 text-xl;
+  @apply text-warning-default text-xl;
 }
 
 .success-xl {
-  @apply text-green-500 text-xl;
+  @apply text-success-default text-xl;
 }

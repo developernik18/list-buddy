@@ -16,6 +16,19 @@ const config: Config = {
         },
         secondary: {
           default: '#9a3412' //orange-800
+        },
+        warning: {
+          default: '#ef4444'
+        },
+        success: {
+          default: '#22c55e'
+        },
+        translucent: {
+          black: {
+            100: 'rgba(0,0,0, 0.1)',
+            300: 'rgba(0,0,0, 0.3)',
+            500: 'rgba(0,0,0, 0.5)',
+          }
         }
       },
       backgroundImage: {
