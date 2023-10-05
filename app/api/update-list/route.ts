@@ -1,9 +1,22 @@
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function PUT(req: NextRequest) {
   const request = await req.json();
+  const supabase = createRouteHandlerClient({cookies});
 
-  console.log(request);
+  const {data: {session}} = await supabase.auth.getSession();
 
-  return NextResponse.json('Check');
+  const response = await supabase
+                          .from('lists')
+                          .update({'title': request.title})
+                          .eq('id', request.id)
+                          .eq('user_id', session?.user.id)
+                          .select()
+
+  return NextResponse.json(response.data, {
+    status: response.status,
+    statusText: response.statusText
+  });
 }

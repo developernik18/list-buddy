@@ -1,6 +1,7 @@
 "use client"
 
 import { List } from "@/types/list"
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react"
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -10,6 +11,7 @@ export default function ListEdit({list}: {list:List}) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const router = useRouter();
 
   const handleListTitleInput = (ev: ChangeEvent<HTMLInputElement>) => {
     setListTitle(ev.target.value);
@@ -32,6 +34,13 @@ export default function ListEdit({list}: {list:List}) {
       body: JSON.stringify({ title: listTitle, id: list.id }),
       headers: { "Content-Type": "application/json" },
     });
+
+    if(response.status === 200) {
+      setSuccess(response.statusText);
+      router.push('/');
+    } else {
+      setError(response.statusText);
+    }
 
 
     setPending(false);
