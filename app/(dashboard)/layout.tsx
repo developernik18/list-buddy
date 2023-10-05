@@ -23,9 +23,8 @@ export default async function RootLayout({children,}: {children: React.ReactNode
 
   return (
     <html lang="en">
-      <body>
+      <body className='bg-gray-100 min-h-screen'>
         <DashboardHeader user={data.session?.user}/>
-      
         {children}
       </body>
     </html>

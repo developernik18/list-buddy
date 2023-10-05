@@ -23,7 +23,7 @@ export default function Checkbox(
   
   const handleChange = async (e: ChangeEvent) => {
     const response = await fetch(baseUrl + '/api/update-item-purchased', {
-      method: "POST",
+      method: "PUT",
       headers: { "Content-Type": "appplication/json" },
       body: JSON.stringify({
         "purchased": !checked,

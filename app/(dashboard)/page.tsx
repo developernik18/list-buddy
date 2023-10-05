@@ -66,20 +66,19 @@ export default async function Home() {
             return (
               <div
                 className="flex flex-col 
-                  basis-full md:basis-1/2 lg:basis-1/3 
+                  basis-full md:basis-1/2 xl:basis-1/3 
                   p-0 md:p-5 py-5"
                 key={list.id}
               >
-                <div className="shadow">
+                <div className="shadow bg-white">
                   <h2
-                    className=" bg-indigo-50 p-5 text-primary-default text-lg font-medium py-3
-                    flex flex-row justify-between items-center border-b-2"
+                    className="card-header"
                   >
                     <span>{list.title}</span>
                     <span className="flex flex-row gap-1">
-                      <span className=" w-6">
+                      <Link href={"/list/" + list.id + "/edit-list"} className=" w-6">
                         <FiEdit />
-                      </span>
+                      </Link>
                       <span className=" w-6">
                         <DeleteList list={list}/>
                       </span>
@@ -111,10 +110,12 @@ export default async function Home() {
                     <Link
                       href={"/list/" + list.id}
                       className="text-center 
-                    bg-gray-100 opacity-90  py-3 
-                    absolute bottom-0 left-0 right-0 z-2"
+                      bg-gray-50 hover:bg-primary-default 
+                      text-primary-default hover:text-white
+                      opacity-90 py-3 
+                      absolute bottom-0 left-0 right-0 z-2"
                     >
-                      <span className="opacity-100 text-secondary-default font-medium">
+                      <span className="font-medium">
                         Open List
                       </span>
                     </Link>

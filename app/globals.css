@@ -25,6 +25,10 @@
   bg-primary-default text-white
 }
 
+.primary-button:hover {
+  @apply bg-primary-hover
+}
+
 .danger-outline-button {
   @apply 
   px-8 md:px-10 
@@ -98,4 +102,14 @@
 
 .success-xl {
   @apply text-success-default text-xl;
+}
+
+.card-header {
+  @apply 
+  bg-indigo-50 text-primary-default
+  p-5 py-3
+  text-lg font-medium 
+  flex flex-row 
+  justify-between items-center 
+  border-b-2
 }

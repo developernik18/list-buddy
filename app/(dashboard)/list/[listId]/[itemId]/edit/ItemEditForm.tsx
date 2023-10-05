@@ -9,7 +9,6 @@ import { Item } from "@/types/item";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 function returnDate(expiry_date: Date | null) {
-  console.log(expiry_date)
   if(expiry_date) {
     return String(expiry_date);
   }
@@ -45,7 +44,7 @@ export default function ItemEditForm(
 
 
     const res = await fetch( baseUrl + '/api/update-item', {
-      method: 'POST',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: itemName,

@@ -12,7 +12,8 @@ const config: Config = {
         transparent: 'transparent',
         current: 'currentColor',
         primary: {
-          default: '#5b21b6' //indigo-800
+          default: '#5b21b6', //indigo-800
+          hover: 'rgb(49, 46, 129)'
         },
         secondary: {
           default: '#9a3412' //orange-800
