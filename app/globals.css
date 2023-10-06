@@ -106,7 +106,7 @@
 
 .card-header {
   @apply 
-  bg-indigo-50 text-primary-default
+  bg-indigo-100 text-primary-default
   p-5 py-3
   text-lg font-medium 
   flex flex-row 

@@ -45,7 +45,7 @@ export default function Checkbox(
     <div>
       <input
         type="checkbox"
-        className=" w-4 h-4"
+        className=" w-4 h-4 cursor-pointer"
         checked={checked}
         onChange={handleChange}
       />

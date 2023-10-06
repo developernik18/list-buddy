@@ -2,17 +2,19 @@ import Link from "next/link";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { getListItems } from "@/util/server-functions/getListItems";
-import { Item } from "@/types/item";
 import { ListItems } from "@/types/listItems";
 import { sortListItems } from "@/util/sort-functions/sortListItems";
 import { isArrayEmpty } from "@/util/validation/empty";
-import { DeleteList } from "./DeleteList";
-import { FiEdit } from "react-icons/fi";
+import { ListCard } from "./ListCard";
 
 const getLists = async () => {
   const supabase = createServerComponentClient({ cookies });
+  const {data: {session}} = await supabase.auth.getSession();
 
-  const { data, error } = await supabase.from("lists").select();
+  const { data, error } = await supabase
+                                  .from("lists")
+                                  .select()
+                                  .eq('user_id', session?.user.id);
 
   if (error) {
     // console.log(error);
@@ -21,8 +23,26 @@ const getLists = async () => {
   return data;
 };
 
+const getSharedLists = async () => {
+  const supabase = createServerComponentClient({ cookies });
+  const {data: {session}} = await supabase.auth.getSession();
+
+  const { data, error } = await supabase
+                                  .from("lists")
+                                  .select()
+                                  .contains('share_with', [session?.user.email]);
+
+
+  if (error) {
+    // console.log(error);
+  }
+
+  return data;
+}
+
 export default async function Home() {
   const lists = await getLists();
+  const sharedLists = await getSharedLists();
   const listItems: ListItems[] = [];
 
   let displayList: boolean = false;
@@ -63,66 +83,7 @@ export default async function Home() {
       <div className="flex flex-row flex-wrap">
         {displayList &&
           listItems?.map((list) => {
-            return (
-              <div
-                className="flex flex-col 
-                  basis-full md:basis-1/2 xl:basis-1/3 
-                  p-0 md:p-5 py-5"
-                key={list.id}
-              >
-                <div className="shadow bg-white">
-                  <h2
-                    className="card-header"
-                  >
-                    <span>{list.title}</span>
-                    <span className="flex flex-row gap-1">
-                      <Link href={"/list/" + list.id + "/edit-list"} className=" w-6">
-                        <FiEdit />
-                      </Link>
-                      <span className=" w-6">
-                        <DeleteList list={list}/>
-                      </span>
-                    </span>
-                  </h2>
-                  <section className=" relative h-64 max-h-64 overflow-hidden">
-                    {list.noItemPresent && (
-                      <div className="flex justify-center p-5">
-                        No Items in the list
-                      </div>
-                    )}
-
-                    {list.items &&
-                      list.items.map((item: Item) => {
-                        return (
-                          <div
-                            className="px-5 py-3 flex flex-row"
-                            key={item.id}
-                          >
-                            <div className="basis-1/2">{item.name}</div>
-                            <div className="divider basis-1/4">-</div>
-                            <div className="basis-1/2">
-                              {item.quantity + " " + item.unit}
-                            </div>
-                          </div>
-                        );
-                      })}
-
-                    <Link
-                      href={"/list/" + list.id}
-                      className="text-center 
-                      bg-gray-50 hover:bg-primary-default 
-                      text-primary-default hover:text-white
-                      opacity-90 py-3 
-                      absolute bottom-0 left-0 right-0 z-2"
-                    >
-                      <span className="font-medium">
-                        Open List
-                      </span>
-                    </Link>
-                  </section>
-                </div>
-              </div>
-            );
+            return <ListCard key={list.id} list={list}/>
           })}
 
         {!displayList && (
