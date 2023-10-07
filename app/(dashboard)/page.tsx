@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getListItems } from "@/util/server-functions/getListItems";
+import { getListItemsInRange } from "@/util/server-functions/getListItems";
 import { ListItems } from "@/types/listItems";
 import { sortListItems } from "@/util/sort-functions/sortListItems";
 import { isArrayEmpty } from "@/util/validation/empty";
@@ -8,6 +8,7 @@ import { getSharedLists } from "@/util/server-functions/getSharedLists";
 import { getUserLists } from "@/util/server-functions/getUserLists";
 import { List, ListWithoutOrigin } from "@/types/list";
 import ErrorBlock from "@/components/ErrorBlock";
+import { RangeOfData } from "@/types/rangeOfData";
 
 const createSingleListArray = (
   userLists: ListWithoutOrigin[] | null,
@@ -31,6 +32,40 @@ const createSingleListArray = (
   return [...list1, ...list2];
 };
 
+const getListArrayItems = async (lists: List[]) => {
+  const listArrayItems: ListItems[] = [];
+
+  for (const list of lists) {
+    let itemRange:RangeOfData = {
+      applyRange: true,
+      lowerValue: 0,
+      count: 4,
+    }
+    let items = await getListItemsInRange(list.id, list.list_key, itemRange);
+
+
+    if (items) {
+      items = sortListItems(items);
+    }
+
+    let noItemPresent = false;
+
+    if (items) {
+      if (items?.length > 4) {
+      } else if (items.length === 0) {
+        noItemPresent = true;
+      }
+    }
+
+    listArrayItems.push({
+      ...list,
+      items: items,
+      noItemPresent,
+    });
+  }
+
+  return listArrayItems;
+}
 
 export default async function Home() {
   const { 
@@ -45,32 +80,8 @@ export default async function Home() {
 
   let lists: List[] = createSingleListArray(userLists, sharedLists);
   let displayList: boolean = isArrayEmpty(lists);
-  const listItems: ListItems[] = [];
+  const listArrayItems: ListItems[] = await getListArrayItems(lists);
   
-  for (const list of lists) {
-    let items = await getListItems(list.id, list.list_key);
-    if (items) {
-      items = sortListItems(items);
-    }
-
-    let shouldHideItems = false;
-    let noItemPresent = false;
-
-    if (items) {
-      if (items?.length > 4) {
-        shouldHideItems = true;
-      } else if (items.length === 0) {
-        noItemPresent = true;
-      }
-    }
-
-    listItems.push({
-      ...list,
-      items: items,
-      shouldHideItems,
-      noItemPresent,
-    });
-  }
 
   return (
     <main className="container px-5 md:px-10 py-10 mx-auto">
@@ -83,7 +94,7 @@ export default async function Home() {
 
       <div className="flex flex-row flex-wrap">
         {displayList &&
-          listItems?.map((list) => {
+          listArrayItems?.map((list) => {
             return <ListCard key={list.id} list={list} />;
           })}
 

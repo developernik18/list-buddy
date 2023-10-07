@@ -6,7 +6,7 @@ export type ListItems = {
   title: string,
   user_id: string,
   list_key: string,
-  shouldHideItems: boolean,
   noItemPresent: boolean,
+  origin: 'self' | 'shared',
   items: Item[]
 }

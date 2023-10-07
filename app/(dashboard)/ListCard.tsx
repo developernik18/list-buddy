@@ -16,7 +16,13 @@ export function ListCard({list}: {list: ListItems}) {
         <h2
           className="card-header"
         >
-          <span>{list.title}</span>
+          <span>
+            {list.title} 
+            <span className="text-sm text-gray-800">
+              {list.origin === 'shared' ? " : (" + list.origin + ")" : ""}
+            </span>
+          </span>
+          
           <span className="flex flex-row gap-1">
             <Link href={"/list/" + list.id + "/edit-list"} className=" w-6">
               <FiEdit />
