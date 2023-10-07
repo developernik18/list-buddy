@@ -1,7 +1,12 @@
  export type List = {
-  id: string,
-  created_at: Date,
+  id: number,
   title: string,
-  user_id: string,
-  list_key: string
+  list_key: string,
+  origin: 'self' | 'shared'
+ }
+
+ export type ListWithoutOrigin = {
+  id: number,
+  title: string,
+  list_key: string,
  }

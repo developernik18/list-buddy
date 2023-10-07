@@ -1,89 +1,90 @@
 import Link from "next/link";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import { getListItems } from "@/util/server-functions/getListItems";
 import { ListItems } from "@/types/listItems";
 import { sortListItems } from "@/util/sort-functions/sortListItems";
 import { isArrayEmpty } from "@/util/validation/empty";
 import { ListCard } from "./ListCard";
+import { getSharedLists } from "@/util/server-functions/getSharedLists";
+import { getUserLists } from "@/util/server-functions/getUserLists";
+import { List, ListWithoutOrigin } from "@/types/list";
+import ErrorBlock from "@/components/ErrorBlock";
 
-const getLists = async () => {
-  const supabase = createServerComponentClient({ cookies });
-  const {data: {session}} = await supabase.auth.getSession();
+const createSingleListArray = (
+  userLists: ListWithoutOrigin[] | null,
+  sharedLists: ListWithoutOrigin[] | null
+) => {
+  let list1: List[] = [];
+  let list2: List[] = [];
 
-  const { data, error } = await supabase
-                                  .from("lists")
-                                  .select()
-                                  .eq('user_id', session?.user.id);
-
-  if (error) {
-    // console.log(error);
+  if (userLists) {
+    list1 = userLists.map((list) => {
+      return { ...list, origin: "self" };
+    });
   }
 
-  return data;
+  if (sharedLists) {
+    list2 = sharedLists.map((list) => {
+      return { ...list, origin: "shared" };
+    });
+  }
+
+  return [...list1, ...list2];
 };
 
-const getSharedLists = async () => {
-  const supabase = createServerComponentClient({ cookies });
-  const {data: {session}} = await supabase.auth.getSession();
-
-  const { data, error } = await supabase
-                                  .from("lists")
-                                  .select()
-                                  .contains('share_with', [session?.user.email]);
-
-
-  if (error) {
-    // console.log(error);
-  }
-
-  return data;
-}
 
 export default async function Home() {
-  const lists = await getLists();
-  const sharedLists = await getSharedLists();
+  const { 
+    data: userLists, 
+    errorMessage: userListsErrorMessage 
+  } = await getUserLists();
+
+  const { 
+    data: sharedLists, 
+    errorMessage: sharedListsErrorMessage 
+  } = await getSharedLists();
+
+  let lists: List[] = createSingleListArray(userLists, sharedLists);
+  let displayList: boolean = isArrayEmpty(lists);
   const listItems: ListItems[] = [];
-
-  let displayList: boolean = false;
-
-  if (lists) {
-    displayList = isArrayEmpty(lists);
-  }
-
-  if (lists) {
-    for (const list of lists) {
-      let items = await getListItems(list.id, list.list_key);
-      if (items) {
-        items = sortListItems(items);
-      }
-
-      let shouldHideItems = false;
-      let noItemPresent = false;
-
-      if (items) {
-        if (items?.length > 4) {
-          shouldHideItems = true;
-        } else if (items.length === 0) {
-          noItemPresent = true;
-        }
-      }
-
-      listItems.push({
-        ...list,
-        items: items,
-        shouldHideItems,
-        noItemPresent,
-      });
+  
+  for (const list of lists) {
+    let items = await getListItems(list.id, list.list_key);
+    if (items) {
+      items = sortListItems(items);
     }
+
+    let shouldHideItems = false;
+    let noItemPresent = false;
+
+    if (items) {
+      if (items?.length > 4) {
+        shouldHideItems = true;
+      } else if (items.length === 0) {
+        noItemPresent = true;
+      }
+    }
+
+    listItems.push({
+      ...list,
+      items: items,
+      shouldHideItems,
+      noItemPresent,
+    });
   }
 
   return (
     <main className="container px-5 md:px-10 py-10 mx-auto">
+      {userListsErrorMessage && (
+        <ErrorBlock errorMessage={userListsErrorMessage} />
+      )}
+      {sharedListsErrorMessage && (
+        <ErrorBlock errorMessage={sharedListsErrorMessage} />
+      )}
+
       <div className="flex flex-row flex-wrap">
         {displayList &&
           listItems?.map((list) => {
-            return <ListCard key={list.id} list={list}/>
+            return <ListCard key={list.id} list={list} />;
           })}
 
         {!displayList && (
