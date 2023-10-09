@@ -39,8 +39,8 @@ export function ListCard({list}: {list: ListItems}) {
             </div>
           )}
 
-          {list.items &&
-            list.items.map((item: Item) => {
+          {list.itemsArray &&
+            list.itemsArray.map((item: Item) => {
               return (
                 <div
                   className="px-5 py-3 flex flex-row"

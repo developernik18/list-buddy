@@ -36,52 +36,45 @@ const getListArrayItems = async (lists: List[]) => {
   const listArrayItems: ListItems[] = [];
 
   for (const list of lists) {
-    let itemRange:RangeOfData = {
+    let itemRange: RangeOfData = {
       applyRange: true,
       lowerValue: 0,
       count: 4,
-    }
-    let items = await getListItemsInRange(list.id, list.list_key, itemRange);
+    };
 
+    let { 
+      itemsArray, 
+      errorMessage: listItemsErrorMesage 
+    } = await getListItemsInRange(list.id, list.list_key, itemRange);
+    
+    itemsArray = sortListItems(itemsArray);
+    let noItemPresent = true;
 
-    if (items) {
-      items = sortListItems(items);
-    }
-
-    let noItemPresent = false;
-
-    if (items) {
-      if (items?.length > 4) {
-      } else if (items.length === 0) {
-        noItemPresent = true;
-      }
+    if(itemsArray.length > 0) {
+      noItemPresent = false;
     }
 
     listArrayItems.push({
       ...list,
-      items: items,
+      itemsArray,
+      errorMessage: listItemsErrorMesage,
       noItemPresent,
     });
   }
 
   return listArrayItems;
-}
+};
 
 export default async function Home() {
-  const { 
-    data: userLists, 
-    errorMessage: userListsErrorMessage 
-  } = await getUserLists();
+  const { data: userLists, errorMessage: userListsErrorMessage } =
+    await getUserLists();
 
-  const { 
-    data: sharedLists, 
-    errorMessage: sharedListsErrorMessage 
-  } = await getSharedLists();
+  const { data: sharedLists, errorMessage: sharedListsErrorMessage } =
+    await getSharedLists();
 
   let lists: List[] = createSingleListArray(userLists, sharedLists);
   let displayList: boolean = isArrayEmpty(lists);
   const listArrayItems: ListItems[] = await getListArrayItems(lists);
-  
 
   return (
     <main className="container px-5 md:px-10 py-10 mx-auto">
