@@ -1,4 +1,5 @@
 import '../globals.css'
+import '../animation.css'
 import type { Metadata } from 'next'
 import DashboardHeader from '@/components/DashboardHeader'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'

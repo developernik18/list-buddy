@@ -10,10 +10,10 @@ export default function DashboardHeader({user}: userType) {
   return (
     <header className=" shadow-sm px-5 md:px-10 py-4 bg-white">
       <div className="container mx-auto flex flex-row justify-between items-center">
-        <Link href={"/"} className="logo">
+        <Link href={"/"} className="logo fade-in">
           List Buddy
         </Link>
-        <nav className="nav">
+        <nav className="nav fade-in">
           {user && (
             <div className="flex flex-row items-center gap-10">
               <Link href={"/all-items"} className="hidden sm:block">

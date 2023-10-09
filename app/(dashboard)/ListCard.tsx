@@ -12,7 +12,7 @@ export function ListCard({list}: {list: ListItems}) {
         basis-full md:basis-1/2 xl:basis-1/3 
         p-0 md:p-5 py-5"
     >
-      <div className="shadow bg-white">
+      <div className="shadow bg-white fade-in-slide-up">
         <h2
           className="card-header"
         >
