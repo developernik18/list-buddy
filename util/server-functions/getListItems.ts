@@ -20,7 +20,6 @@ export async function getListItems(listId: number, listKey: string) {
     itemsArray = data;
   }
 
-
   return {itemsArray, errorMessage};
 }
 
