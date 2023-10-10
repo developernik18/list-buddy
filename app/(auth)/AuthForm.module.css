@@ -1,5 +1,5 @@
 .form {
-  @apply bg-white p-10 shadow-md 
+  @apply bg-white p-5 pt-10
   flex flex-col md:w-fit
   items-center justify-center gap-4
 }

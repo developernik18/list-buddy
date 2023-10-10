@@ -52,16 +52,19 @@ export default function SignUp() {
 
   return (
     <main className="flex flex-col items-center h-full">
-      <h2
-        className="text-xl md:text-2xl 
-          py-10 md:py-16 
-          text-primary-default font-semibold"
-      >
-        Sign Up
-      </h2>
+      <div className="form-area bg-white my-10 md:my-16 p-5 shadow-md">
 
-      <AuthForm handleSubmit={handleSubmit} buttonText={buttonText} />
-      {error && <div className="error">{error}</div>}
+        <h2
+          className="text-xl md:text-2xl  
+          text-primary-default font-semibold text-center"
+        >
+          Sign Up
+        </h2>
+
+        <AuthForm handleSubmit={handleSubmit} buttonText={buttonText} />
+        {error && <div className="error">{error}</div>}
+      
+      </div>
     </main>
   );
 }
