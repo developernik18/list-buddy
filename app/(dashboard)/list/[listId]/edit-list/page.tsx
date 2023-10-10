@@ -4,7 +4,11 @@ import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
 
 export default async function EditList({params}: {params:{listId:number}}) {
-  const list = await getListInfo(params.listId); 
+  const {
+    data: list,
+    errorMessage: listErrorMessage
+  } = await getListInfo(params.listId);
+
 
   return (
     <main className="flex flex-row justify-center items-center">

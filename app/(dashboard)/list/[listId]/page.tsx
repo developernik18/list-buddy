@@ -3,7 +3,6 @@ import { FiArrowLeft, FiEdit, FiTrash } from "react-icons/fi";
 import { getListInfo } from "@/util/server-functions/getListInfo";
 import { getListItems } from "@/util/server-functions/getListItems";
 import Checkbox from "@/components/Checkbox";
-import { List } from "@/types/list";
 import { redirect } from "next/navigation";
 import { sortListItems } from "@/util/sort-functions/sortListItems";
 import Delete from "../../../../components/Delete";
