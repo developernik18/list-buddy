@@ -5,7 +5,8 @@ import { getListInfo } from "@/util/server-functions/getListInfo";
 
 
 export default async function AddToList({ params }: {params: {listId: number}}) {
-  let listInfo = await getListInfo(params.listId);
+  const { data: listInfo, errorMessage: listErrorMessage } =
+  await getListInfo(params.listId);
 
 
   return (

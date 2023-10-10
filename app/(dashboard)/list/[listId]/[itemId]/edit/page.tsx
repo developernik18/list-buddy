@@ -1,14 +1,24 @@
-import Link from "next/link"
-import { FiArrowLeft } from "react-icons/fi"
+import Link from "next/link";
+import { FiArrowLeft } from "react-icons/fi";
 import { getListInfo } from "@/util/server-functions/getListInfo";
 import ItemEditForm from "./ItemEditForm";
 import { List } from "@/types/list";
 import { getItemDetails } from "@/util/server-functions/getItemDetails";
 import { Item } from "@/types/item";
 
-export default async function EditItem({ params }: {params: {listId: number, itemId: number}}) {
-  const listDetails:List = await getListInfo(params.listId);
-  const itemDetails:Item = await getItemDetails(listDetails.list_key, params.listId, params.itemId)
+export default async function EditItem({
+  params,
+}: {
+  params: { listId: number; itemId: number };
+}) {
+  const { data: listDetails, errorMessage: listErrorMessage } =
+    await getListInfo(params.listId);
+
+  const itemDetails: Item = await getItemDetails(
+    listDetails.list_key,
+    params.listId,
+    params.itemId
+  );
 
   return (
     <main className="bg-gray-50 h-[90vh]">
@@ -19,24 +29,22 @@ export default async function EditItem({ params }: {params: {listId: number, ite
 
         <section className="w-full lg:w-4/5 xl:w-3/5 mx-auto">
           <div className="top bg-orange-100 p-3 text-center font-medium text-xl">
-            Edit 
+            Edit
             <span className="text-secondary-default">
-                {' "' + itemDetails?.name + '" '} 
-            </span>  
+              {' "' + itemDetails?.name + '" '}
+            </span>
             from
             <span className="text-secondary-default">
-                {' "' + listDetails?.title + '" '} 
-            </span>  
+              {' "' + listDetails?.title + '" '}
+            </span>
             List
           </div>
 
           {itemDetails && (
-            <ItemEditForm listDetails={listDetails} itemDetails={itemDetails}/>
+            <ItemEditForm listDetails={listDetails} itemDetails={itemDetails} />
           )}
-
         </section>
-        
       </section>
     </main>
-  )
+  );
 }
