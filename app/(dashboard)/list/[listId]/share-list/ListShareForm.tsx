@@ -1,49 +1,24 @@
 "use client"
 
+import "./ListShareForm.css";
 import { List } from "@/types/list"
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react"
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-export default function ListEdit({list}: {list:List}) {
-  const [listTitle, setListTitle] = useState(list.title);
+export default function ListShareForm({list}: {list:List}) {
+  const [email, setEmail] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const router = useRouter();
 
-  const handleListTitleInput = (ev: ChangeEvent<HTMLInputElement>) => {
-    setListTitle(ev.target.value);
-  };
+  const handleEmailInput = (ev: ChangeEvent<HTMLInputElement>) => {
+    setEmail(ev.target.value);
+  }
 
-  const handleSubmit = async(ev: FormEvent) => {
-    ev.preventDefault();
-
-    if(listTitle.length < 3) {
-      setError('Title should atleast have 2 characters.');
-      return;
-    }
-
-    setPending(true);
-    setError('');
-    setSuccess('');
-
-    const response = await fetch(baseUrl + "/api/update-list", {
-      method: "PUT",
-      body: JSON.stringify({ title: listTitle, id: list.id }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if(response.status === 200) {
-      setSuccess(response.statusText);
-      router.push('/');
-    } else {
-      setError(response.statusText);
-    }
-
-
-    setPending(false);
+  const handleSubmit = async (ev: FormEvent) => {
 
   }
 
@@ -52,7 +27,7 @@ export default function ListEdit({list}: {list:List}) {
     <div className=" w-full sm:w-4/5 lg:w-3/5 xl:w-2/5 mx-auto mt-5">
       <div className="bg-white shadow-white">
         <div className="card-header">
-          Edit List
+          {list.title} List
         </div>
         <div className="card-body py-5 px-5 md:p-10">
           <form 
@@ -62,14 +37,16 @@ export default function ListEdit({list}: {list:List}) {
             <label
               className=" w-full flex flex-col px-3 gap-4"
             >
-              <span className="text-xl">Title</span>
+              <span className="text-xl">
+                Share with
+              </span>
               <input
-                type="text"
-                name="title"
+                type="email"
+                name="email"
                 className=" bg-gray-100 px-4 py-2"
-                placeholder="Enter title for this list."
-                onChange={handleListTitleInput}
-                value={listTitle}
+                placeholder="Enter email to share your list"
+                value={email}
+                onChange={handleEmailInput}
                 required
               />
             </label>
@@ -101,6 +78,30 @@ export default function ListEdit({list}: {list:List}) {
 
 
           </form>
+
+          {list.share_with && (
+            <>
+              
+              <hr className="my-5 md:my-10"/>
+              <div className="shared-with-list-container">
+                <span className="title">
+                  List Shared with:                   
+                </span>
+                <div className="shared-with-list">
+                  {list.share_with.map(listedEmail => {
+                    return (
+                      <div key={listedEmail} className="email-container">
+                        {listedEmail}
+                      </div>
+                    )
+                  })}
+                </div>
+                
+              </div>
+            </>
+            
+          )}
+
         </div>
       </div>
     </div>

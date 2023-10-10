@@ -3,6 +3,7 @@
   title: string,
   list_key: string,
   user_email: string,
+  share_with: string[],
   origin: 'self' | 'shared'
  }
 
@@ -10,5 +11,6 @@
   id: number,
   title: string,
   list_key: string,
+  share_with: string[],
   user_email: string
  }

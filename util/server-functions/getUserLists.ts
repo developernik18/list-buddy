@@ -8,7 +8,7 @@ export const getUserLists = async () => {
 
   const {data, error, statusText, status} = await supabase
                           .from("lists")
-                          .select('id, title, list_key, user_email')
+                          .select('id, title, list_key, user_email, share_with')
                           .eq('user_id', session?.user.id);
 
   let errorMessage = getErrorMessage(status, statusText);

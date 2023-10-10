@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiShare2 } from "react-icons/fi";
 import { DeleteList } from "./DeleteList";
 import { ListItems } from "@/types/listItems";
 import { Item } from "@/types/item";
@@ -24,6 +24,12 @@ export function ListCard({list}: {list: ListItems}) {
           </span>
           
           <span className="flex flex-row gap-1">
+            {list.origin === 'self' && (
+              <Link href={"/list/" + list.id + "/share-list"} className=" w-6">
+                <FiShare2 />
+              </Link>
+            )}
+
             <Link href={"/list/" + list.id + "/edit-list"} className=" w-6">
               <FiEdit />
             </Link>

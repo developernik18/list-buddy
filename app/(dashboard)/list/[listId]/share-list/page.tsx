@@ -1,9 +1,10 @@
-import { addListOrigin, getListInfo } from "@/util/server-functions/getListInfo"
-import ListEdit from "./ListEditForm";
+import { getListInfo, addListOrigin } from "@/util/server-functions/getListInfo";
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
+import ListShareForm from "./ListShareForm";
 
-export default async function EditList({params}: {params:{listId:number}}) {
+
+export default async function ShareList({params} : {params: {listId: number}}) {
   const {
     data: list,
     errorMessage: listErrorMessage
@@ -16,9 +17,9 @@ export default async function EditList({params}: {params:{listId:number}}) {
         <Link href={"/"}>
           <FiArrowLeft />
         </Link>
-        {list && (
-          <ListEdit list={addListOrigin(list)}/>
-        )}
+        {list &&
+          <ListShareForm list={addListOrigin(list)}/>      
+        }
       </section>
     </main>
   )

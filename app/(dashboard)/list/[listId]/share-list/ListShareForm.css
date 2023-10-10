@@ -1,0 +1,15 @@
+.title {
+  @apply p-5 py-3
+  text-lg font-medium 
+}
+
+.shared-with-list {
+  @apply flex flex-col
+  text-base 
+  p-5 py-3
+  gap-2
+}
+
+.email-container {
+  @apply p-3 bg-indigo-50 rounded;
+}

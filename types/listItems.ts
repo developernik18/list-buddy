@@ -9,4 +9,5 @@ export type ListItems = {
   origin: 'self' | 'shared',
   itemsArray: Item[],
   errorMessage: string,
+  share_with: string[]
 }
