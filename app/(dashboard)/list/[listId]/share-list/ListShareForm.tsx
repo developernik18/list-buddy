@@ -19,6 +19,34 @@ export default function ListShareForm({list}: {list:List}) {
   }
 
   const handleSubmit = async (ev: FormEvent) => {
+    ev.preventDefault();
+    setPending(true);
+    setError('');
+    setSuccess('');
+
+    
+    let newShareWith = [email];
+
+    if(list.share_with) {
+      newShareWith = [email, ...list.share_with];
+    } 
+
+    const response = await fetch(baseUrl + "/api/update-list", {
+      method: "PUT",
+      body: JSON.stringify({ title: list.title, id: list.id, share_with: newShareWith }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if(response.status === 200) {
+      setSuccess(response.statusText);
+      router.push('/');
+    } else {
+      setError(response.statusText);
+    }
+
+
+    setPending(false);
+
 
   }
 

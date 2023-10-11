@@ -10,7 +10,7 @@ export async function PUT(req: NextRequest) {
 
   const response = await supabase
                           .from('lists')
-                          .update({'title': request.title})
+                          .update({'title': request.title, 'share_with': request.share_with})
                           .eq('id', request.id)
                           .eq('user_id', session?.user.id)
                           .select()

@@ -31,7 +31,7 @@ export default function ListEdit({list}: {list:List}) {
 
     const response = await fetch(baseUrl + "/api/update-list", {
       method: "PUT",
-      body: JSON.stringify({ title: listTitle, id: list.id }),
+      body: JSON.stringify({ title: listTitle, id: list.id, share_with: list.share_with }),
       headers: { "Content-Type": "application/json" },
     });
 
