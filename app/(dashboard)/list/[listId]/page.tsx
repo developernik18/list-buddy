@@ -14,7 +14,7 @@ export default async function ListInDetail({
   params: { listId: number };
 }) {
   const {
-    data: listInfo,
+    data: list,
     errorMessage: listErrorMessage
   } = await getListInfo(params.listId);
 
@@ -22,7 +22,7 @@ export default async function ListInDetail({
 
   let { itemsArray, errorMessage: itemsArrayErrorMessage } = await getListItems(
     params.listId,
-    listInfo?.list_key
+    list?.list_key
   );
 
   if (itemsArray) {
@@ -43,17 +43,17 @@ export default async function ListInDetail({
           <FiArrowLeft />
         </Link>
 
-        {!showTable && (
+        {!showTable && list && (
           <section
             className="w-full lg:w-4/5 xl:w-/5 mx-auto 
           flex flex-col justify-center align-middle"
           >
             <span className=" text-red-500 font-medium text-xl text-center">
-              No Items present in {listInfo.title} List.
+              No Items present in {list.title} List.
             </span>
             <div className="create-list-button-container flex flex-row justify-center mt-10">
               <Link
-                href={"/list/" + listInfo.id + "/add-items"}
+                href={"/list/" + list.id + "/add-items"}
                 className="primary-button"
               >
                 Add Items
@@ -62,10 +62,10 @@ export default async function ListInDetail({
           </section>
         )}
 
-        {showTable && (
+        {showTable && list && (
           <section className="w-full mx-auto">
             <div className="top bg-white border-b-2 p-3 px-5 md:px-10 text-left font-medium text-xl">
-              <span className="text-secondary-default">{listInfo?.title}</span>
+              <span className="text-secondary-default">{list?.title}</span>
             </div>
 
             <section className="p-0 md:p-10 bg-white shadow-md">
@@ -127,7 +127,7 @@ export default async function ListInDetail({
 
             <div className="create-list-button-container flex flex-row justify-center mt-10">
               <Link
-                href={"/list/" + listInfo.id + "/add-items"}
+                href={"/list/" + list.id + "/add-items"}
                 className="primary-button"
               >
                 Add more items
