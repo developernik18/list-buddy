@@ -9,7 +9,8 @@ export const getSharedLists = async () => {
   const { data, error, status, statusText } = await supabase
                                   .from("lists")
                                   .select('id, title, list_key, user_email, share_with')
-                                  .contains('share_with', [session?.user.email]);
+                                  .contains('share_with', [session?.user.email])
+                                  .neq('user_email', session?.user.email);
 
 
   let errorMessage = getErrorMessage(status, statusText);
