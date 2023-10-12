@@ -1,0 +1,12 @@
+.container {
+  @apply p-5 bg-white flex flex-col gap-2;
+}
+
+.row {
+  @apply flex flex-row gap-5 items-center;
+}
+
+.label {
+  @apply text-sm text-gray-600 w-28;
+}
+

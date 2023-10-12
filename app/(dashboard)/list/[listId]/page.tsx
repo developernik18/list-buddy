@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { sortListItems } from "@/util/sort-functions/sortListItems";
 import Delete from "../../../../components/Delete";
 import { currencyValueToLabel } from "@/util/selection-list/for-currency";
+import SimpleItem from "./SimpleItem";
 
 export default async function ListInDetail({
   params,
@@ -64,11 +65,18 @@ export default async function ListInDetail({
 
         {showTable && list && (
           <section className="w-full mx-auto">
-            <div className="top bg-white border-b-2 p-3 px-5 md:px-10 text-left font-medium text-xl">
-              <span className="text-secondary-default">{list?.title}</span>
+            <div 
+              className="top bg-white border-b-2 
+              p-3 px-5 md:px-10 
+              text-center lg:text-left font-medium text-xl"
+            >
+              <span className="text-secondary-default">
+                {list?.title}
+              </span>
             </div>
 
-            <section className="p-0 md:p-10 bg-white shadow-md">
+            {/* For desktop view */}
+            <section className="p-0 bg-white shadow-md hidden lg:flex">
               <table className="w-full">
                 <thead className=" bg-orange-100 text-secondary-default h-10">
                   <tr>
@@ -111,10 +119,11 @@ export default async function ListInDetail({
                               item?.id +
                               "/edit"
                             }
+                            className="pl-5"
                           >
                             <FiEdit />
                           </Link>
-                          <span>
+                          <span className="px-5">
                             <Delete item={item} />
                           </span>
                         </td>
@@ -123,6 +132,13 @@ export default async function ListInDetail({
                   })}
                 </tbody>
               </table>
+            </section>
+
+            {/* For mobile view */}
+            <section className="p-0 bg-white-shadow-md flex flex-col lg:hidden">
+              {itemsArray.map(item => {
+                return <SimpleItem item={item} key={item.id} />
+              })}
             </section>
 
             <div className="create-list-button-container flex flex-row justify-center mt-10">
