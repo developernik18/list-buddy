@@ -10,9 +10,10 @@ import { useState } from "react";
 
 export default function SimpleItem({item}: {item: Item}) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   return (
-    <div key={item.id}>
+    <div key={item.id} className=" transition-all">
       <div 
         className="collapsed-item 
         p-3 my-2 rounded 
@@ -31,7 +32,15 @@ export default function SimpleItem({item}: {item: Item}) {
 
           <div 
             className="px-3 cursor-pointer" 
-            onClick={isExpanded? () => setIsExpanded(false) : () => setIsExpanded(true)}
+            onClick={isExpanded ? 
+              () => {
+                setIsClosing(true);
+                setTimeout(() => {
+                  setIsClosing(false);
+                  setIsExpanded(false);
+                }, 300)} : 
+              () => setIsExpanded(true)
+              }
           >
             {isExpanded && <FiChevronUp />}
             {!isExpanded && <FiChevronDown />}
@@ -44,17 +53,17 @@ export default function SimpleItem({item}: {item: Item}) {
               item.id +
               "/edit"
             }
-            className="px-3"
+            className="px-3 hidden sm:block"
           >
             <FiEdit />
           </Link>
-          <div className="pl-3 pr-5">
+          <div className="pl-3 pr-5 hidden sm:block">
             <Delete item={item} />
           </div>
         </div>
       </div>
       {isExpanded && (
-        <ExpandedItem item={item} isExpanded={isExpanded}/>
+        <ExpandedItem item={item} isClosing={isClosing}/>
       )}
     </div>
   )
