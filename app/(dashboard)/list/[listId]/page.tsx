@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FiArrowLeft, FiEdit, FiTrash } from "react-icons/fi";
+import { FiArrowLeft, FiEdit } from "react-icons/fi";
 import { getListInfo } from "@/util/server-functions/getListInfo";
 import { getListItems } from "@/util/server-functions/getListItems";
 import Checkbox from "@/components/Checkbox";
@@ -8,6 +8,7 @@ import { sortListItems } from "@/util/sort-functions/sortListItems";
 import Delete from "../../../../components/Delete";
 import { currencyValueToLabel } from "@/util/selection-list/for-currency";
 import SimpleItem from "./SimpleItem";
+import AddItem from "./AddItem";
 
 export default async function ListInDetail({
   params,
@@ -151,6 +152,8 @@ export default async function ListInDetail({
             </div>
           </section>
         )}
+
+        <AddItem />
       </section>
     </main>
   );
