@@ -7,10 +7,10 @@
   appearance-none
 
   focus:outline-none focus:ring-0
-  focus:border-blue-600
+  focus:border-primary-default
 
   dark:text-white dark:border-gray-600
-  dark:focus:border-blue-500
+  dark:focus:border-primary-default
 }
 
 .floatingOutlinedLabel {
@@ -23,10 +23,4 @@
   bg-white
   dark:bg-gray-900
   px-2
-  peer-focus:px-2
-  peer-focus:dark:text-blue-500
-  peer-placeholder-shown:scale-100
-  peer-placeholder-shown:-translate-y-1/2
-  peer-placeholder-shown:top-1/2 peer-focus:top-2
-  peer-focus:scale-75 peer-focus:-translate-y-4 left-1
 }

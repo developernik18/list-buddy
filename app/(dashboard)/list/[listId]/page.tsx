@@ -153,7 +153,9 @@ export default async function ListInDetail({
           </section>
         )}
 
-        <AddItem />
+        {list && (
+          <AddItem list={list}/>
+        )}
       </section>
     </main>
   );
