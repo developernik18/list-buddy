@@ -9,7 +9,7 @@ import { ListWithoutOrigin } from "@/types/list";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-export default function AddItem({list} : {list: ListWithoutOrigin}) {
+export default function AddItem({list, setIsModalOpen} : {list: ListWithoutOrigin, setIsModalOpen: (value:boolean) => void}) {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -60,14 +60,20 @@ export default function AddItem({list} : {list: ListWithoutOrigin}) {
   }
 
   return (
-    <div className="modal fixed w-screen h-screen bg-black top-0 left-0 flex justify-center items-center">
+    <div className="modal fixed w-screen h-screen bg-translucent-black-600 top-0 left-0 flex justify-center items-center">
       <div 
-        className="absolute text-white right-10 top-6 text-xl cursor-pointer">
+        className="absolute text-white right-10 top-6 text-xl 
+          cursor-pointer hover:shadow"
+        onClick={() => {
+          setIsModalOpen(false)
+        }}
+      >
         X
       </div>
       
       <form 
-        className="flex flex-col gap-3 p-5 md:p-10 bg-white"
+        className="flex flex-col gap-3 p-5 md:p-10 
+        bg-white w-4/5 lg:w-3/5 xl:w-2/5 rounded"
         onSubmit={(ev) => handleFormSubmission(ev)}
       >
         <h2 className="text-lg text-primary-default font-medium text-center mb-3">
@@ -161,7 +167,7 @@ export default function AddItem({list} : {list: ListWithoutOrigin}) {
           <div className="success-xl text-right">
             {successMessage + " "}
             <a href={"/list/" + list.id} className=" text-primary-default">
-              Open List
+              Refresh page
             </a>
           </div>
         )}
