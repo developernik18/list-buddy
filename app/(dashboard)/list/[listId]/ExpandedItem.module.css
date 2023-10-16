@@ -42,7 +42,10 @@
   @apply flex flex-row gap-5 items-center;
 }
 
+.action {
+  @apply justify-end sm:hidden;
+}
+
 .label {
   @apply text-sm text-gray-600 w-28;
 }
-

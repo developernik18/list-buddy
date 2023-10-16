@@ -17,7 +17,7 @@ export default function ExpandedItem({
 }) {
   return (
     <div className={isClosing ? Styles.container + " " + Styles.exit : Styles.container + " " + Styles.entry}>
-      <div className={Styles.row + " justify-end" }>
+      <div className={Styles.row + " " + Styles.action }>
         <div className="action-icons flex flex-row">
           <Link
             href={
