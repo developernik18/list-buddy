@@ -58,7 +58,7 @@ export default function DisplayItem({list, itemsArray}: {list: ListWithoutOrigin
           {/* For desktop view */}
           <section className="p-0 bg-white shadow-md hidden lg:flex">
             <table className="w-full">
-              <thead className=" bg-orange-100 text-secondary-default h-10">
+              <thead className=" bg-orange-100 text-secondary-default text-lg h-10">
                 <tr>
                   <th>Item</th>
                   <th>Quantity with Unit</th>
@@ -74,9 +74,9 @@ export default function DisplayItem({list, itemsArray}: {list: ListWithoutOrigin
                   return (
                     <tr
                       key={item.id}
-                      className="text-center h-14 even:bg-gray-100 odd:bg-white"
+                      className="text-center text-lg h-14 even:bg-gray-50 odd:bg-white"
                     >
-                      <td>{item.name}</td>
+                      <td className=" text-primary-default font-medium">{item.name}</td>
                       <td>{item.quantity + " " + item.unit}</td>
                       <td>
                         {currencyValueToLabel(item.currency) +
